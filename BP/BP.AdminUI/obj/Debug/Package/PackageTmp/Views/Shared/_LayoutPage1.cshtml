@@ -1,0 +1,258 @@
+﻿
+<!DOCTYPE html>
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>srtdash - ICO Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="~/assets/images/icon/favicon.ico">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="~/assets/css/metisMenu.css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/slicknav.min.css">
+    <!-- amchart css -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- others css -->
+    <link rel="stylesheet" href="~/assets/css/typography.css">
+    <link rel="stylesheet" href="~/assets/css/default-css.css">
+    <link rel="stylesheet" href="~/assets/css/styles.css">
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    <link href="~/assets/toastr/build/toastr.min.css" rel="stylesheet" />
+    <!-- modernizr css -->
+    <script src="~/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+    <script src="~/assets/charts.js"></script>
+
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+        <div style="padding: 1px;" class="header-area col-12">
+            <div style="padding: 0px 20px;" class="row align-items-center">
+                <!-- nav and search button -->
+                <div class=" clearfix">
+                    <div class="nav-btn pull-left">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-md-3 clearfix">
+                    <ul class="notification-area pull-right">
+                        <li class="dropdown">
+                            <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
+                                <span>2</span>
+                            </i>
+                            <div class="dropdown-menu bell-notify-box notify-box">
+                                <span class="notify-title">2 yeni bildiriminiz var<a href="#">Hepsini Gör</a></span>
+                                <div class="nofity-list">
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"></i>
+                            <div class="dropdown-menu notify-box nt-enveloper-box">
+                                <span class="notify-title">0 yeni bildiriminiz var<a href="#">Hepsini Gör</a></span>
+                                <div class="nofity-list">
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div style="padding: 1px; width:220px;" class="user-profile pull-right">
+                    <img src="~/assets/images/author/anonym.png" class="avatar mr-0 mr-sm-16">
+                    <span data-toggle="dropdown" class="username mr-12 dropdown-toggle">
+                    @(((BP.AdminUI.Atributte.SessionContext)Session["SessionContext"]).UserName)</span>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Kullanıcı Ayarları</a>
+                        <a class="dropdown-item" href="/Login/Index">Çıkış Yap</a>
+                    </div>
+                </div>
+                <ul class="notification-area pull-right ml-3">
+                    <li id="full-view"><i class="ti-fullscreen"></i></li>
+                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                </ul>
+
+            </div>
+        </div>
+        <!-- header area end -->
+        <!-- sidebar menu area start -->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="col-12">
+                    <a href="/Home/Index/"><i class="fa fa-truck text-white small"></i><h1 class="m-auto text-white">EM-LOG</h1></a>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div class="menu-inner">
+                    <nav>
+                        <ul class="metismenu" id="menu">
+                            <li class="active">
+                                <a href="/Home/Index" aria-expanded="true"><i class="ti-dashboard"></i><span>Ana Sayfa</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="fa fa-table"></i><span>Gönderiler</span>
+                                </a>
+                                <ul class="collapse">
+                                    <li><a href="/Shipping/Insert"><span>Gönderi Ekle</span></a></li>
+                                    <li><a href="/Shipping/Index"><span>Gönderi Listesi</span></a></li>
+                                    <li><a href="/Shipping/Index1"><span>Gönderi Log Listesi</span></a></li>
+                                    <li><a href="/Shipping/Index2"><span>Gönderi İptal Listesi</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="ti-check-box"></i><span>Kargo Kabul</span>
+                                </a>
+                                <ul class="collapse">
+                                    <li><a href="/Home/Error"><span>Kargo Kabul</span></a></li>
+                                    <li><a href="/Home/Error"><span>Kargo Kabul Listesi</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="ti-layers-alt"></i><span>Firma Yönetimi</span>
+                                </a>
+                                <ul class="collapse">
+                                    <li><a href="/Company/Index1"><span>Firma Ekle</span></a></li>
+                                    <li><a href="/Company/Index"><span>Firma Listesi</span></a></li>
+                                    <li><a href="/Company/Index2"><span>Firma Kullanıcı Ekle</span></a></li>
+                                    <li><a href="/Company/Index3"><span>Firma Kullanıcı Listesi</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="ti-layers"></i><span>Alıcı Yönetimi</span>
+                                </a>
+                                <ul class="collapse">
+                                    <li><a href="/Receiver/Index1"><span>Alıcı Ekle</span></a></li>
+                                    <li><a href="/Receiver/Index"><span>Alıcı Listesi</span></a></li>
+                                    <li><a href="/Receiver/Index3"><span>Alıcı Adres Ekle</span></a></li>
+                                    <li><a href="/Receiver/Index2"><span>Alıcı Adres Listesi</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="ti-server"></i><span>Raporlar</span>
+                                </a>
+                                <ul class="collapse">
+                                    <li><a href="/Home/Error"><span>Satış Raporu</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="ti-settings"></i><span>Ayarlar</span>
+                                </a>
+                                <ul class="collapse">
+                                    <li><a href="/Settings/Quarter"><span>Mahalleler</span></a></li>
+                                    <li><a href="/Settings/TaxAdministraition"><span>Vergi Daireleri</span></a></li>
+                                    <li><a href="/Settings/Cargo"><span>Kargo Firmaları</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- sidebar menu area end -->
+        <!-- main content area start -->
+
+        <div class="row">
+            <!-- data table start -->
+            @RenderBody()
+        </div>
+
+
+        <!-- main content area end -->
+    </div>
+    <!-- page container area end -->
+    <!-- offset area start -->
+    <div class="offset-area">
+        <div class="offset-close"><i class="ti-close"></i></div>
+        <ul class="nav offset-menu-tab">
+            <li><a class="active" data-toggle="tab" href="#activity">Activity</a></li>
+            <li><a data-toggle="tab" href="#settings">Settings</a></li>
+        </ul>
+        <div class="offset-content tab-content">
+        </div>
+    </div>
+
+    <!-- offset area end -->
+    <!-- jquery latest version -->
+    <script src="~/assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/metisMenu.min.js"></script>
+    <script src="~/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/assets/js/jquery.slicknav.min.js"></script>
+
+
+    <!-- start chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <!-- start highcharts js -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- start zingchart js -->
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];</script>
+    <!-- all line chart activation -->
+    <script src="~/assets/js/line-chart.js"></script>
+    <!-- all pie chart -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    <script src="~/assets/js/pie-chart.js"></script>
+    <!-- others plugins -->
+    <script src="~/assets/js/plugins.js"></script>
+    <script src="~/assets/js/scripts.js"></script>
+    <!-- Start datatable js -->
+    <!-- others plugins -->
+    @RenderSection("JS", false)
+
+    <script src="~/assets/Mess.js"></script>
+    <script src="~/assets/toastr/build/toastr.min.js"></script>
+    <script>
+        $(document).ready(
+            function () {
+                $('.deneme').DataTable({
+                    destroy: true,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/tr.json',
+                    },
+                });
+
+            }
+        )
+    </script>
+</body>
+
+</html>
+

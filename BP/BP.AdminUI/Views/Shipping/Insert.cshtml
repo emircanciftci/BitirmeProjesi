@@ -1,0 +1,607 @@
+﻿
+@{
+    ViewBag.Title = "Gönderi Ekle";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ShippingInsertVM
+
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">GÖNDERİ EKLE</h4>
+<div class="main-content-inner">
+    <form class="needs-validation" novalidate="">
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label>Gönderici Firma</label>
+                <select class="form-control" id="companyID" onchange="getreceiverlist()" required>
+                    <option value=""></option>
+                    @foreach (var item in Model.CompanyList)
+                    {
+                        <option value="@item.ID">@item.CompanyName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Gönderi Tarihi</label>
+                <input class="form-control" type="date" value="" id="example-date-input" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-5 mb-3">
+                <label class="label-control">Alıcı Listesi</label>
+                <select class="form-control" disabled id="receiverID" onclick="rcvrat()" required>
+                </select>
+            </div>
+            <div>
+                <label class="label-control mt-3"></label> <br />
+                <a id="rcvrad" class="btn btn-primary btn-xs disabled" onclick="btnrecoiver()" href="#">Alıcı Ekle</a>
+            </div>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <div class="col-5 mb-3">
+                <label class="label-control">Alıcı Adres</label>
+                <select class="form-control" disabled id="receiveradressID" required>
+                </select>
+            </div>
+            <div>
+                <label class="label-control mt-3"></label> <br />
+                <a class="btn btn-primary btn-xs disabled" id="adrsad" onclick="btnrecoiveradress()" href="#">Adres Ekle</a>
+            </div>
+
+
+            <div class="col-md-2 mb-3">
+                <select class="form-control" required id="cargoID">
+                    <option value="">Kargo Firması</option>
+                    @foreach (var item in Model.CargoList)
+                    {
+                        <option value="@item.ID">@item.CargoName</option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-md-3 mb-3">
+                <input required class="form-control" type="text" id="BagNumber" value="" placeholder="Poşet Numarası" />
+            </div>
+            <div class="col-1"></div>
+            <div class="col-md-5">
+                <select onchange="vergi()" class="form-control" required id="PaymentType">
+                    <option value="Gönderici Ödeme">Gönderici Ödeme</option>
+                    <option value="Alıcı Ödeme">Alıcı Ödeme</option>
+                    <option disabled value="Sigortalı Alıcı Ödeme">Sigortalı Alıcı Ödeme</option>
+                    <option disabled value="Tahsilatlı Ödeme">Tahsilatlı Ödeme</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <select class="form-control" id="IntegrationType">
+                    <option value="">Entegrasyon Türü</option>
+                    <option value="WebTEK">WebTEK</option>
+                    <option value="Entegrasyonsuz">Entegrasyonsuz</option>
+                </select>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-md-2 mb-3">
+                <input disabled class="form-control" type="text" id="Vd" value="" placeholder="Vergi Dairesi" />
+            </div>
+            <div class="col-md-3 mb-3">
+                <input disabled class="form-control" type="text" id="Vn" value="" placeholder="Vergi Numarası" />
+            </div>
+
+            <div class="col-md-4 mb-3 row">
+                <label class="label-control mt-2 mr-2 col-6">Ürün Değeri($)</label>
+                <label class="label-control mt-2 ml-4 col-4">Dolar Kuru(₺)</label>
+                <input required class="form-control col-6 ml-3" type="text" name="currency-field" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Ürün Değeri Giriniz">
+                <input class="ml-4 text-center col-3" type="text" disabled id="dollar" value="@Model.Dollar" />
+
+            </div>
+
+            <div class="col-2 ml-4"></div>
+            <div class="col-md-6 mb-3">
+                <label class="label-control">Açıklama</label>
+                <textarea class="form-control" id="Explanation" placeholder="Açıklama" aria-label="With textarea"></textarea>
+            </div>
+            <div class="card col-12">
+                <textarea rows="5">
+Hizmet Tanımı: EMLOG taşıyıcı değil; kargo ve sigorta hizmeti sağlayıcısıdır.
+
+Yetkilendirme: Gönderen, malın sahibi ya da yetkili temsilcisidir ve işlemleri kendine özel kullanıcı adı/şifreyle yapar.
+
+Paketleme ve Teslim: Ürün, gönderen veya yetkili kişisi tarafından EMLOG veya kargo firmasının mühürlü poşetine konur. EMLOG, poşet içeriğinden sorumlu değildir.
+
+Sigorta: Sigortalama için, kullanıcı adı/şifresiyle siteye girip sigorta beyan formu doldurulmalı ve “kabul ediyorum” butonuna basılmalıdır.
+
+Teslimat ve Adres: Yanlış adres nedeniyle doğan ekstra ücretler gönderen tarafından ödenir.
+
+Sigorta Sertifikası: Gönderici ve alıcının hakları sigorta sertifikasına ve sözleşmeye göre belirlenir.
+
+Değer Beyanı: Gönderen, gönderinin tam değerini bildirmeli; aksi takdirde sadece beyan edilen tutar kadar sorumluluk kabul edilir.
+
+Paketleme Sorumluluğu: Gönderi güvenli şekilde paketlenmeli ve etiketlenmelidir. Hukuki ve cezai sorumluluk gönderene aittir.
+
+Zarar ve Kayıplar: Nedeni belli olmayan zarar veya kayıplardan EMLOG sorumlu değildir.
+
+Beyan Edilmeyen Değer: Sigorta beyanı yapılmayan gönderilerde EMLOG sorumluluk kabul etmez.
+
+Mücbir Sebepler: Doğal afet, savaş, grev gibi durumlarda EMLOG sorumlu tutulamaz.
+
+Hasar Bildirimi: Her türlü kayıp/hasar derhal ve yazılı olarak bildirilmelidir, aksi halde haklar kaybedilir.
+
+Yetkili Kişiler: EMLOG adına çalışan kişi ve firmalar da bu muafiyetlerden yararlanır.
+
+Müşterek Sorumluluk: Gönderen ve alıcı, sözleşmeye aykırılık durumunda doğabilecek tüm mali ve hukuki sonuçlardan müştereken sorumludur.
+
+Yükümlülük Sınırı: EMLOG, yalnızca sözleşmede ve sigorta sertifikasında belirtilen yükümlülükleri üstlenir.
+
+Yasal Uygunluk: Gönderen, taşımaya ilişkin tüm yasal sorumlulukları taşır; yasaklı madde gönderimi halinde EMLOG’un zararlarını karşılamakla yükümlüdür.
+
+Belge Sunumu: Hasar durumunda gerekli belgeler 7 gün içinde sunulmalıdır, aksi halde talep hakkı doğmaz.
+
+İmzalı Teslimatlar: Teslim alan kişinin imzası sonrası EMLOG’un sorumluluğu sona erer.
+
+Temsilciye Teslim: Kapıcı, sekreter gibi kişilere yapılan teslimatlar geçerli sayılır.
+
+Teslimat Sonrası Sorumluluk: Teslim sonrası EMLOG’un sorumluluğu sona erer.
+
+Sahte Kart: Sahte kredi kartıyla yapılan işlemlerde EMLOG’a karşı hiçbir talepte bulunulamaz.
+
+Uyuşmazlık: Uyuşmazlıklarda Türkiye Cumhuriyeti yasaları geçerli olup, İstanbul Mahkemeleri yetkilidir.
+
+Yürürlük: Sözleşme, internet üzerinden “kabul ediyorum” butonuna tıklanmasıyla yürürlüğe girer.
+</textarea>
+            </div>
+
+        </div>
+        <div class="mt-2 col-12">
+            <input type="checkbox" class="inline checkbox" name="checkbox1" id="checkbox1" value="false" onchange="boks()" />
+            <label>Kabul Ediyorum.</label>
+            <a href="#" onclick="shippingadd()" id="btn12" class="disabled btn btn-success float-right">Kaydet</a>
+        </div>
+
+
+
+
+        <div class="modal" id="recoivermodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h5 class="modal-title ml-2">Alıcı Ekle</h5>
+                    <div class="form-control" id="priceTable">
+                        <div class="col-md-12 mb-3">
+                            <input type="text" class="form-control" id="ReceiverName1" placeholder="Ad*" value="" />
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <input type="text" class="form-control" id="ReceiverPhone1" placeholder="Telefon*" value="" />
+                        </div>
+                    </div>
+                    <div class="modal-footer float-right">
+                        <a href="#" onclick="receiveradd()" class="btn btn-danger">Kaydet</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal mt-5" id="recoiveradressmodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <h5 class="modal-title ml-2">Adres Ekle</h5>
+                    <div class="form row ml-2 mr-2 mt-3">
+                        <div class="col-md-12 mb-3">
+                            <input class="form-control" type="text" name="title" id="title" value="" placeholder="Adres Başlığı*" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input class="form-control" type="text" name="name" id="name" value="" placeholder="Ad*" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input class="form-control" type="text" name="lastname" id="lastname" value="" placeholder="Soyad*" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input class="form-control" type="number" name="phone" id="phone" value="" placeholder="Telefon*" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <select class="form-control" id="cityID1" name="cityID1" onchange="getdistrictlist()">
+                                <option value="">İl*</option>
+                                @foreach (var item in Model.CityList)
+                                {
+                                    <option value="@item.ID">@item.CityName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <select class="form-control" id="districtID1" onchange="getquarterlist(this.value)">
+                                <option value="">İlçe*</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <select class="form-control" id="QuarterID1">
+                                <option value="">Mahalle*</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <input class="form-control" style="padding: 30px 30px;" id="adress" type="text" placeholder="Adres*" value="" />
+                        </div>
+                    </div>
+                    <div class="modal-footer float-right">
+                        <a href="#" onclick="recoiveradressadd()" class="btn btn-danger">Kaydet</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+@section JS{
+    <script>
+        ///modallar açılıyor
+        function btnrecoiver() {
+            $('#recoivermodal').modal('show');
+        };
+        function btnrecoiveradress() {
+            $('#recoiveradressmodal').modal('show');
+        };
+
+        ///firmaya göre alıcı listeleme
+        function getreceiverlist() {
+            var aa = $('#companyID').val();
+            var html = "";
+            $.get('/shipping/GetReceiverlist/' + aa, function (result) {
+                html += "<option></option>"
+                for (var i = 0; i < result.length; i++) {
+                    html += " <option value='" + result[i].ID + "'>" + result[i].ReceiverName + "</option>"
+                }
+                $('#receiverID').html(html);
+            })
+
+            if (aa != null && aa != "") {
+                $("#receiverID").removeAttr("disabled", "disabled");
+                $("#rcvrad").removeClass("disabled", "disabled");
+            }
+            else {
+                $("#receiverID").attr("disabled", "disabled");
+                $("#rcvrad").addClass("disabled", "disabled");
+                $("#receiveradressID").attr("disabled", "disabled");
+                $("#adrsad").addClass("disabled", "disabled");
+                $("#receiverID").html("");
+                $("#receiveradressID").html("");
+            }
+        }
+
+        ///alıcıya göre adres listeleme
+        function rcvrat() {
+            var al = $("#receiverID").val();
+            var html = "";
+            $.get('/shipping/GetAdresslist/' + al, function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    html += "<option value='" + result[i].ID + "'>" + result[i].Title + " (" + result[i].name + ", " + result[i].lastName + ", " + result[i].phone + ", " + result[i].city + ", " + result[i].district + ", " + result[i].Quarter + ", " + result[i].adress + ") " + "</option>"
+                }
+                $('#receiveradressID').html(html);
+            })
+
+            if (al != null && al != "") {
+                $("#receiveradressID").removeAttr("disabled", "disabled");
+                $("#adrsad").removeClass("disabled", "disabled");
+            }
+            else {
+                $("#receiveradressID").attr("disabled", "disabled");
+                $("#adrsad").addClass("disabled", "disabled");
+                $("#receiveradressID").html("");
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        ///il ilçe mahalle
+
+        function getdistrictlist() {
+            var bbe = $('#cityID1').val();
+            var html = "";
+            $.get('/shipping/GetDistrictlist/' + bbe, function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    html += "<option value='" + result[i].ID + "'>" + result[i].DistrictName + "</option>"
+                }
+                $('#districtID1').html(html)
+            })
+        }
+        function getquarterlist() {
+            var cc = $('#districtID1').val();
+            var html = "";
+            $.get('/shipping/GetQuarterlist/' + cc, function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    html += " <option value='" + result[i].ID + "'>" + result[i].QuarterName + "</option>"
+                }
+                $('#QuarterID1').html(html)
+            })
+        }
+    </script>
+
+
+    <script>
+        ///checkbox onaylanmadan kaydedilemez
+        function boks() {
+            var aa = $("#checkbox1").is(":checked");
+            if (aa) {
+                $("#btn12").removeClass("disabled", "disabled");
+            }
+            else {
+                $("#btn12").addClass("disabled", "disabled");
+            }
+        }
+    </script>
+
+    <script>
+        ///alıcı kayıt
+        function receiveradd() {
+            var companyID = $("#companyID").val();
+            var ReceiverName = $("#ReceiverName1").val();
+            var ReceiverPhone = $("#ReceiverPhone1").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/shipping/receiveradd/",
+                data: { companyID, ReceiverName, ReceiverPhone },
+                success: function (sonuc) {
+                    if (sonuc) {
+                        $('#receiverID').html("");
+                        $('#recoivermodal').modal('hide');
+                        getreceiverlist()
+                    }
+                    else {
+                        alert("Hata");
+                    }
+                }
+            })
+        }
+    </script>
+    <script>
+        ///alıcı adres kaydet
+        function recoiveradressadd() {
+            var ReceiverID1 = $("#receiverID").val();
+            var Title = $("#title").val();
+            var name = $("#name").val();
+            var lastName = $("#lastname").val();
+            var phone = $("#phone").val();
+            var cityID1 = $("#cityID1").val();
+            var districtID1 = $("#districtID1").val();
+            var QuarterID1 = $("#QuarterID1").val();
+            var adress = $("#adress").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/shipping/recoiveradressadd/",
+                data: { Title, name, lastName, phone, cityID1, districtID1, QuarterID1, adress, ReceiverID1 },
+                success: function (sonuc) {
+                    if (sonuc) {
+                        $('#receiveradressID').html("");
+                        $('#recoiveradressmodal').modal('hide');
+                        rcvrat();
+                        //$.get('/shipping/listele/', function (result) {
+                        //    ////adres kayıt ederken aynı zamanda seçili gelecek
+                        //})
+
+                    }
+                    else {
+                        alert("Hata");
+                    }
+                }
+            });
+
+
+        }
+    </script>
+
+    <script>
+        ///gönderiyi kaydetme
+        function shippingadd() {
+            var ShippingDate = $("#example-date-input").val();
+            var CompanyID = $("#companyID").val();
+            var ReceiverID = $("#receiverID").val();
+            var ReceiverAdressID = $("#receiveradressID").val();
+            var CargoID = $("#cargoID").val();
+            var PaymentType = $("#PaymentType").val();
+            var IntegrationType = $("#IntegrationType").val();
+            var BagNumber = $("#BagNumber").val();
+            var ProductPrice = $("#currency-field").val();
+            var ChangePrice = $("#dollar").val();
+            var Explanation = $("#Explanation").val();
+            var Vd = $("#Vd").val();
+            var Vn = $("#Vn").val();
+
+            $("#companyID").removeClass("border-danger");
+            $("#example-date-input").removeClass("border-danger");
+            $("#receiverID").removeClass("border-danger");
+            $("#receiveradressID").removeClass("border-danger");
+            $("#cargoID").removeClass("border-danger");
+            $("#BagNumber").removeClass("border-danger");
+            $("#currency-field").removeClass("border-danger");
+            $("#currency-field1").removeClass("border-danger");
+            if (CompanyID > 0 || CompanyID != "") {
+                if (ShippingDate != "") {
+                    if (ReceiverID > 0) {
+                        if (ReceiverAdressID > 0) {
+                            if (CargoID > 0 || CargoID != "") {
+                                if (BagNumber != "") {
+                                    if (ProductPrice != "") {
+                                        if (ChangePrice != "") {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/shipping/shippingadd/",
+                                                data: { ShippingDate, CompanyID, ReceiverID, ReceiverAdressID, CargoID, PaymentType, IntegrationType, BagNumber, ProductPrice, Explanation, ChangePrice, Vd, Vn },
+                                                success: function (sonuc) {
+                                                    if (sonuc) {
+                                                        sucMess("Gönderi Kaydedildi", "İşlem Başarılı");
+                                                        setInterval(function () {
+                                                            window.location.href = "/shipping/Index";
+                                                        }, 3000)
+                                                    }
+                                                    else {
+                                                        warMess("Gönderi Kaydedilemedi", "Hata");
+                                                    }
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            warMess("Dolar Kuru Giriniz", "Hata");
+                                            $("#currency-field1").addClass("border-danger");
+                                        }
+                                    }
+                                    else {
+                                        warMess("Ürün Değeri Giriniz", "Hata");
+                                        $("#currency-field").addClass("border-danger");
+                                    }
+                                }
+                                else {
+                                    warMess("Poşet Numarası Giriniz", "Hata");
+                                    $("#BagNumber").addClass("border-danger");
+                                }
+                            }
+                            else {
+                                warMess("Kargo Firması Seçiniz", "Hata");
+                                $("#cargoID").addClass("border-danger");
+                            }
+                        }
+                        else {
+                            warMess("Alıcı Adres Seçiniz", "Hata");
+                            $("#receiveradressID").addClass("border-danger");
+                        }
+                    }
+                    else {
+                        warMess("Alıcı Seçiniz", "Hata");
+                        $("#receiverID").addClass("border-danger");
+                    }
+                }
+                else {
+                    warMess("Gönderi Tarihi Seçiniz", "Hata");
+                    $("#example-date-input").addClass("border-danger");
+                }
+            }
+            else {
+                warMess("Firma Seçiniz", "Hata");
+                $("#companyID").addClass("border-danger");
+            }
+        }
+    </script>
+    <script>
+        function vergi() {
+            var aa = $("#PaymentType").val();
+            if (aa == "Alıcı Ödeme") {
+                $("#Vd").removeAttr("disabled", "disabled");
+                $("#Vn").removeAttr("disabled", "disabled");
+                $("#Vd").addClass("border-danger");
+                $("#Vn").addClass("border-danger");
+            }
+            else {
+                $("#Vd").removeClass("border-danger");
+                $("#Vn").removeClass("border-danger");
+                $("#Vd").attr("disabled", "disabled");
+                $("#Vn").attr("disabled", "disabled");
+            }
+        }
+    </script>
+    <script>
+        ///fiyat formatı
+        // Jquery Dependency
+        $("input[data-type='currency']").on({
+            keyup: function () {
+                formatCurrency($(this));
+            },
+            blur: function () {
+                formatCurrency($(this), "blur");
+            }
+        });
+
+
+        function formatNumber(n) {
+            // format number 1000000 to 1,234,567
+            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+
+        function formatCurrency(input, blur) {
+            // appends $ to value, validates decimal side
+            // and puts cursor back in right position.
+
+            // get input value
+            var input_val = input.val();
+
+            // don't validate empty input
+            if (input_val === "") { return; }
+
+            // original length
+            var original_len = input_val.length;
+
+            // initial caret position
+            var caret_pos = input.prop("selectionStart");
+
+            // check for decimal
+            if (input_val.indexOf(".") >= 0) {
+
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+
+                // add commas to left side of number
+                left_side = formatNumber(left_side);
+
+                // validate right side
+                right_side = formatNumber(right_side);
+
+                // On blur make sure 2 numbers after decimal
+                if (blur === "blur") {
+                    right_side += "00";
+                }
+
+                // Limit decimal to only 2 digits
+                right_side = "$" + right_side.substring(0, 2);
+
+                // join number by .
+                input_val = "$" + left_side + "." + right_side;
+
+            } else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = formatNumber(input_val);
+                input_val = "$" + input_val;
+
+                // final formatting
+                if (blur === "blur") {
+                    input_val += ".00";
+                }
+            }
+
+            // send updated string to input
+            input.val(input_val);
+
+            // put caret back in the right position
+            var updated_len = input_val.length;
+            caret_pos = updated_len - original_len + caret_pos;
+            input[0].setSelectionRange(caret_pos, caret_pos);
+        }
+    </script>
+    <script>
+        window.onload = function loadDate() {
+            let date = new Date(),
+                day = date.getDate(),
+                month = date.getMonth() + 1,
+                year = date.getFullYear();
+
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+
+            const todayDate = `${year}-${month}-${day}`;
+
+            document.getElementById("example-date-input").defaultValue = todayDate;
+        };
+    </script>
+
+
+}

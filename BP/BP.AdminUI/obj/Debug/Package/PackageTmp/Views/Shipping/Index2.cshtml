@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "İptal Listesi";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ShippingInsertVM
+
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">GÖNDERİ İPTAL LİSTESİ</h4>
+<div class="col-12">
+    <div class="card-body">
+        <div class="data-tables">
+            <table id="dataTable" class="text-lg-left deneme">
+                <thead class="bg-light text-capitalize">
+                    <tr class="text-center">
+                        <th hidden></th>
+                        <th>Tarih</th>
+                        <th>Gönderi No</th>
+                        <th>Gönderici</th>
+                        <th>Alıcı</th>
+                        <th>Alıcı Adres</th>
+                        <th>Kargo Şirketi</th>
+                        <th>Poşet No</th>
+                        <th>Ödeme Türü</th>
+                        <th>Nedeni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShippingList)
+                    {
+                        string aa = "LDK";
+                        <tr class="text-center">
+                            <td hidden></td>
+                            <td>@item.ShippingDate.Value.ToShortDateString()</td>
+                            <td>@aa@item.ID</td>
+                            <td tabindex="0" class="sorting_1">@item.Company.CompanyName</td>
+                            <td tabindex="0" class="sorting_1">@item.Receiver.ReceiverName</td>
+                            <td>@item.ReceiverAdress.Title (@item.ReceiverAdress.ReceiverName, @item.ReceiverAdress.ReceiverSurname, @item.ReceiverAdress.ReceiverPhone, @item.ReceiverAdress.City.CityName, @item.ReceiverAdress.District.DistrictName, @item.ReceiverAdress.Quarter.QuarterName, @item.ReceiverAdress.ReceiverAdress1)</td>
+                            <td>@item.Cargo.CargoName</td>
+                            <td>@item.BagNumber</td>
+                            <td>@item.PaymentType</td>
+                            <td>@item.CancelExplanation</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

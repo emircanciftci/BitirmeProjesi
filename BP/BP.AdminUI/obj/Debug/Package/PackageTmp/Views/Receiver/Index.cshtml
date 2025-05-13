@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Alıcı Listesi";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ShippingInsertVM
+
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">ALICI LİSTESİ</h4>
+<div class="col-12 mt-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="single-table">
+                <div class="data-tables">
+                    <table id="dataTable2" class="text-left deneme">
+                        <thead class="text-uppercase">
+                            <tr class="alert-secondary">
+                                <th hidden></th>
+                                <th class="col-1">Düzenle</th>
+                                <th>Gönderici</th>
+                                <th>Alıcı Adı/Unvanı</th>
+                                <th>Alıcı Firma</th>
+                                <th>Telefon</th>
+                                <th>Durumu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ReceiverList)
+                            {
+                                <tr>
+                                    <td hidden></td>
+                                    <td>
+                                        <ul class="d-flex justify-content-center">
+                                            <li class="mr-3"><a href="/Receiver/Update/@item.ID" class="border text-secondary"><i class="fa fa-edit"></i></a></li>
+                                        </ul>
+                                    </td>
+                                    <th class="border">@item.Company.CompanyNameTitle</th>
+                                    <td class="border">@item.ReceiverName</td>
+                                    @if (item.ReceiverCompanyID != 0 && item.ReceiverCompanyID != null)
+                                    {
+                                        <td class="border">@Model.CompanyList.Where(x => x.ID == item.ReceiverCompanyID).FirstOrDefault().CompanyName</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="border"></td>
+                                    }
+                                    <td class="border">@item.ReceiverPhone</td>
+                                    <td class="border">
+                                        @if (item.IsActive == true)
+                                        {
+                                            <a onclick="durum(@item.ID)" href="#"><span class="badge badge-success">Aktif</span></a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="durum(@item.ID)" href="#"><span class="badge badge-danger">Pasif</span></a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function durum(ID) {
+        $.get("/Receiver/UserStatus/" + ID, function (result) {
+            if (result) {
+                sucMess("Durum Aktif olarak değiştirildi", "İşlem Başarılı");
+                setInterval(function () {
+                    window.location.reload()
+                }, 2000)
+            }
+            else {
+                sucMess("Durum Pasif olarak değiştirildi", "İşlem Başarılı");
+                setInterval(function () {
+                    window.location.reload()
+                }, 2000)
+            }
+        })
+    }
+</script>
+
+

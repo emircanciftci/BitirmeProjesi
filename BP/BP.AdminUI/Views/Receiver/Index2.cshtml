@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Alıcı Adres Listesi";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ReceiverAdressVM
+
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">ALICI ADRES LİSTESİ</h4>
+<div class="col-12 mt-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="single-table">
+                <div class="data-tables">
+                    <table id="dataTable2" class="text-left deneme">
+                        <thead class="text-uppercase">
+                            <tr class="alert-secondary">
+                                <th hidden></th>
+                                <th class="col-1">Düzenle</th>
+                                <th>Alıcı</th>
+                                <th>Telefon</th>
+                                <th>Adres</th>
+                                <th>Durumu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.receAdresslist)
+                            {
+                                <tr>
+                                    <td hidden></td>
+                                    <td>
+                                        <ul class="d-flex justify-content-center">
+                                            <li class="mr-3"><a href="/Receiver/UpdateAd/@item.ID" class="border text-secondary"><i class="fa fa-edit"></i></a></li>
+                                        </ul>
+                                    </td>
+                                    <th class="border">@item.Receiver.ReceiverName</th>
+                                    <th class="border">@item.Receiver.ReceiverPhone</th>
+                                    <th class="border">
+                                        @item.Title,(@item.ReceiverName @item.ReceiverSurname,@item.ReceiverPhone,@item.City.CityName,@item.District.DistrictName,@item.Quarter.QuarterName,@item.ReceiverAdress1)
+                                    </th>
+                                    <td class="border">
+                                        @if (item.IsActive == true)
+                                            {
+                                                <a onclick="durum(@item.ID)" href="#"><span class="badge badge-success">Aktif</span></a>
+                                            }
+                                            else
+                                            {
+                                                <a onclick="durum(@item.ID)" href="#"><span class="badge badge-danger">Pasif</span></a>
+                                            }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function durum(ID) {
+        $.get("/Receiver/UserAdStatus/" + ID, function (result) {
+            if (result) {
+                sucMess("Durum Aktif olarak değiştirildi", "İşlem Başarılı");
+                setInterval(function () {
+                    window.location.reload()
+                }, 2000)
+            }
+            else {
+                sucMess("Durum Pasif olarak değiştirildi", "İşlem Başarılı");
+                setInterval(function () {
+                    window.location.reload()
+                }, 2000)
+            }
+        })
+    }
+</script>

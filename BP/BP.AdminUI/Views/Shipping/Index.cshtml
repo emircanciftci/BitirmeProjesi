@@ -1,0 +1,311 @@
+﻿
+@{
+    ViewBag.Title = "Gönderi Listesi";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ShippingInsertVM
+
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">GÖNDERİ LİSTESİ</h4>
+<div class="col-12 row ml-2">
+    <div class="col-md-2">
+        <label>İşlem Başlangıç Tarihi</label>
+        <input class="form-control" type="date" id="date" />
+    </div>
+    <div class="col-md-2 row">
+        <label>İşlem Bitiş Tarihi</label>
+        <input class="form-control" type="date" id="date1" />
+    </div>
+</div>
+<div class="col-12 row ml-2 mt-2">
+    <div class="col-md-2">
+        <select style="height:35px" class="form-control" id="companyID" onchange="getreceiverlist()" required>
+            <option value="">Gönderici Firma</option>
+            @foreach (var item in Model.CompanyList)
+            {
+                <option value="@item.ID">@item.CompanyName</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2 row">
+        <select style="height:35px" class="form-control" disabled id="receiverID">
+            <option value="">Alıcı</option>
+        </select>
+    </div>
+    <div class="col-md-2 ml-1 row">
+        <select style="height:35px" class="form-control" id="IlID">
+            <option value="">İl</option>
+            @foreach (var item in Model.CityList)
+            {
+                <option value="@item.ID">@item.CityName</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2 ml-1 row">
+        <select style="height:35px" class="form-control" id="cargoID">
+            <option value="">Kargo Firması</option>
+            @foreach (var item in Model.CargoList)
+            {
+                <option value="@item.ID">@item.CargoName</option>
+            }
+        </select>
+    </div>
+    <div class="col-2 ml-1 row">
+        <br />
+        <a class="btn btn-success disabled" onclick="listele()" href="#">Listele</a>
+    </div>
+</div>
+<head>
+    <link rel="stylesheet" href="~/assets/newtable/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/newtable/css/data-table/bootstrap-table.css">
+</head>
+<div class="data-table-area col-12 mt-2 ml-2 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar">
+                                <a class="btn btn-info disabled" href="#">Barkod Çıkart</a>
+                            </div>
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                   data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th style="width:45px" data-field="state" data-checkbox="true"></th>
+                                        <th data-field="id">Tarih</th>
+                                        <th data-field="name">Gönderi No</th>
+                                        <th data-field="email">Takip Kodu</th>
+                                        <th data-field="complete">Gönderici</th>
+                                        <th data-field="task">Fatura Ünvanı</th>
+                                        <th data-field="date">Alıcı</th>
+                                        <th data-field="price">Alıcı Adres</th>
+                                        <th>Kargo Şirketi</th>
+                                        <th>Poşet No</th>
+                                        <th>Ödeme Türü</th>
+                                        <th>Ürün Değeri</th>
+                                        <th>Düzenle</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listtable">
+                                    @foreach (var item in Model.ShippingList)
+                                    {
+                                        string ldkNo = "LDK" + item.ID;
+                                        <tr class="text-center">
+                                            <td></td>
+                                            <td>@item.ShippingDate.Value.ToShortDateString()</td>
+                                            <td>@ldkNo</td>
+                                            <td>
+                                                @if (item.IntegrationType == "Entegrasyonsuz")
+                                                {
+                                                    @item.TrackingCode <a onclick="eklee(@item.ID)" href="#"><i class="ti ti-pencil"></i></a>
+                                                }
+                                                else
+                                                {
+                                                    @item.TrackingCode
+                                                }
+                                            </td>
+                                            <td>@item.Company.CompanyName</td>
+                                            @if (item.PaymentType == "Alıcı Ödeme")
+                                            {
+                                                <td>@item.Receiver.Company.CompanyNameTitle</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@item.Company.CompanyNameTitle</td>
+                                            }
+                                            <td>@item.Receiver.ReceiverName</td>
+                                            <td>
+                                                @if (item.ReceiverAdress == null)
+                                                {
+                                                    <span class="bg-danger text-white">Adres Bulunamadı</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        @item.ReceiverAdress.Title,
+                                                        (@item.ReceiverAdress.ReceiverName @item.ReceiverAdress.ReceiverSurname,
+                                                        @item.ReceiverAdress.ReceiverPhone,
+                                                        @item.ReceiverAdress.City.CityName,
+                                                        @item.ReceiverAdress.District.DistrictName,
+                                                        @item.ReceiverAdress.Quarter.QuarterName,
+                                                        @item.ReceiverAdress.ReceiverAdress1)
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>@item.Cargo.CargoName</td>
+                                            <td>@item.BagNumber</td>
+                                            <td>@item.PaymentType</td>
+                                            <td>@item.ProductPrice$</td>
+                                            <td>
+                                                <a href="/Shipping/Update/@item.ID" class="ti-menu"></a><span class="icon-name"></span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Takip Kodu Giriniz</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <label></label>
+            <input class=" m-auto mt-3 col-10 form-control" id="codee" type="text" name="name" value="" />
+            <label></label>
+            <div hidden id="codd"></div>
+            <div class="modal-footer">
+                <a onclick="kaydd()" class="btn btn-primary text-white">Kaydet</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="~/assets/newtable/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-table.js"></script>
+<script src="~/assets/newtable/js/data-table/tableExport.js"></script>
+<script src="~/assets/newtable/js/data-table/data-table-active.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-table-editable.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-editable.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-table-resizable.js"></script>
+<script src="~/assets/newtable/js/data-table/colResizable-1.5.source.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-table-export.js"></script>
+
+<script>
+    function eklee(ID) {
+        aa = ID;
+        var html = "";
+        html += "<input type='text' id='Code' value=" + aa + " />"
+        $('#codd').html(html);
+        $('#myModal').modal("show");
+    }
+    function kaydd() {
+        var ID = $("#Code").val();
+        var TrackCodee = $("#codee").val();
+        $.ajax({
+            type: "POST",
+            url: "/Shipping/TrackCodee/",
+            data: { ID, TrackCodee },
+            success: function (sonuc) {
+                if (sonuc) {
+                    sucMess("Takip Kodu Değiştirildi", "İşlem Başarılı");
+                    setInterval(function () {
+                        window.location.href = "/shipping/Index";
+                    }, 2000)
+                }
+            }
+        });
+    }
+</script>
+<script>
+    function getreceiverlist() {
+        var aa = $('#companyID').val();
+        var html = "";
+        $.get('/shipping/GetReceiverlist/' + aa, function (result) {
+            html += "<option>Alıcı</option>"
+            for (var i = 0; i < result.length; i++) {
+                html += " <option value='" + result[i].ID + "'>" + result[i].ReceiverName + "</option>"
+            }
+            $('#receiverID').html(html);
+        })
+
+        if (aa != null && aa != "") {
+            $("#receiverID").removeAttr("disabled", "disabled");
+        }
+        else {
+            $("#receiverID").attr("disabled", "disabled");
+        }
+    }
+</script>
+<script>
+    window.onload = function loadDate() {
+        let date = new Date(),
+            day = date.getDate(),
+            month = date.getMonth() + 1,
+            year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        const todayDate = `${year}-${month}-${day}`;
+
+        document.getElementById("date").defaultValue = todayDate;
+        document.getElementById("date1").defaultValue = todayDate;
+    };
+
+</script>
+<script>
+    function listele() {
+        var BasData = $('#date').val();
+        var BitData = $('#date1').val();
+        var Company = $('#companyID').val();
+        var Receiver = $('#receiverID').val();
+        var City = $('#IlID').val();
+        var Cargo = $('#cargoID').val();
+        var html = "";
+        $.ajax({
+            type: "POST",
+            url: "/shipping/Listele/",
+            data: { BasData, BitData, Company, Receiver, City, Cargo }
+            //success: function (sonuc) {
+            //    if (sonuc) {
+            //        for (var i = 0; i < result.length; i++) {
+            //            var ldkNo = "LDK" + result[i].ID;
+            //            '<tr class="text-center">'
+            //            '<td></td>'
+            //            '<td>' + result[i].ShippingDate.Value.ToShortDateString() + '</td>'
+            //            '<td>' + ldkNo + '</td>'
+            //            '<td>'
+            //            if (+ result[i].IntegrationType == "Entegrasyonsuz") {
+            //                result[i].TrackingCode + ' < a href="#"><i class="ti ti-pencil"></i></a>'
+            //            }
+            //            else {
+            //                result[i].TrackingCode
+            //            }
+            //            '</td>'
+            //            '<td>' + result[i].IntegrationType + '</td>'
+            //            '<td>' + result[i].IntegrationType + '</td>'
+            //            if (result[i].PaymentType == "Alıcı Ödeme") {
+            //                '<td>' + result[i].IntegrationType + '</td>'
+            //            }
+            //            else {
+            //                '<td>' + result[i].IntegrationType + '</td>'
+            //            }
+            //            '<td>' + result[i].IntegrationType + '</td>'
+            //            '<td>'
+            //            if (result[i].ReceiverAdress == null) {
+            //                '<span class="bg-danger text-white">Adres Bulunamadı</span>'
+            //            }
+            //            else {
+            //                '<span>'
+            //                    + result[i].IntegrationType +
+            //                    '</span>'
+            //            }
+            //            '</td>'
+            //            '<td>' + result[i].IntegrationType + '</td > '
+            //            '<td>' + result[i].BagNumber + '</td > '
+            //            '<td>' + result[i].PaymentType + '</td > '
+            //            '<td>' + result[i].ProductPrice + '</td >'
+            //            '</tr>'
+            //        }
+            //        $('#listtable').append(html);
+            //    }
+            //    else {
+            //        alert("tarih hatası");
+            //    }
+            //}
+
+        });
+    }
+</script>

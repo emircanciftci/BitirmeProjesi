@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Anasayfa";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.BarVM
+
+<div class="main-content">
+    <div class="main-content-inner row">
+        <div class="m-auto col-12">
+            <div class="mt-2 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title text-center col-12">YILLIK İSTATİSTİK TABLOSU</h4>
+                        <canvas id="chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width:400px" class="col-12 mt-3 m-auto row">
+            <div class="col-6 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="chart1"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="chart2"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var k1 = @Model.CargoPrice1;
+    var k2 = @Model.CargoPrice2;
+    var k3 = @Model.CargoPrice3;
+    var k4 = @Model.CargoPrice4;
+    var k5 = @Model.CargoPrice5;
+    var k6 = @Model.CargoPrice6;
+    var k7 = @Model.CargoPrice7;
+    var k8 = @Model.CargoPrice8;
+    var k9 = @Model.CargoPrice9;
+    var k10 = @Model.CargoPrice10;
+    var k11 = @Model.CargoPrice11;
+    var k12 = @Model.CargoPrice12;
+    var s1 = @Model.InsurancePrice1;
+    var s2 = @Model.InsurancePrice2;
+    var s3 =@Model.InsurancePrice3;
+    var s4 =@Model.InsurancePrice4;
+    var s5 =@Model.InsurancePrice5;
+    var s6 =@Model.InsurancePrice6;
+    var s7 =@Model.InsurancePrice7;
+    var s8 =@Model.InsurancePrice8;
+    var s9 =@Model.InsurancePrice9;
+    var s10 =@Model.InsurancePrice10;
+    var s11 =@Model.InsurancePrice11;
+    var s12 =@Model.InsurancePrice12;
+    var t1 = @Model.TotalPrice1;
+    var t2 = @Model.TotalPrice2;
+    var t3 = @Model.TotalPrice3;
+    var t4 = @Model.TotalPrice4;
+    var t5 = @Model.TotalPrice5;
+    var t6 = @Model.TotalPrice6;
+    var t7 = @Model.TotalPrice7;
+    var t8 = @Model.TotalPrice8;
+    var t9 = @Model.TotalPrice9;
+    var t10 = @Model.TotalPrice10;
+    var t11 = @Model.TotalPrice11;
+    var t12 = @Model.TotalPrice12;
+
+    var ctx = document.getElementById('chart').getContext('2d');
+    var chart = new Chart(ctx, {
+        data: {
+            labels: ['Geçen Yıl', '', '', '', '', '', '', '', '', '', '', 'Bu Ay',],
+            datasets: [{
+                label: 'Kargo(₺)',
+                data: [k12,k11,k10,k9,k8,k7,k6,k5,k4,k3,k2,k1],
+                type: 'bar'
+            },
+            {
+                label: 'Sigorta(₺)',
+                data: [s12, s11, s10, s9, s8, s7, s6, s5, s4, s3, s2, s1],
+                type: 'bar'
+            },
+            {
+                label: 'Ciro(₺)',
+                data: [t12, t11, t10, t9, t8, t7, t6, t5, t4, t3, t2, t1],
+                type: 'line'
+
+            }]
+        },
+    });
+    var ctx = document.getElementById('chart1').getContext('2d');
+    var chart = new Chart(ctx, {
+        data: {
+            labels: ['Yurtİçi','HepsiJet','KolayGelsin','MNG','UPS','DHL','Aras'],
+            datasets: [{
+                label: 'Kargo Firması',
+                data: [1651, 614, 25, 124, 151, 564, 48],
+                type: 'pie'
+            }]
+        },
+    });
+
+
+
+    var CargoNumber1 = @Model.CargoNumber1;
+    var CargoNumber2 = @Model.CargoNumber2;
+    var CargoNumber3 = @Model.CargoNumber3;
+    var CargoNumber4 = @Model.CargoNumber4;
+    var CargoNumber5 = @Model.CargoNumber5;
+    var CargoNumber6 = @Model.CargoNumber6;
+    var CargoNumber7 = @Model.CargoNumber7;
+    var CargoNumber8 = @Model.CargoNumber8;
+    var CargoNumber9 = @Model.CargoNumber9;
+    var CargoNumber10 = @Model.CargoNumber10;
+    var CargoNumber11 = @Model.CargoNumber11;
+    var CargoNumber12 = @Model.CargoNumber12;
+
+
+
+    var ctx = document.getElementById('chart2').getContext('2d');
+    var chart = new Chart(ctx, {
+        data: {
+            labels: ['Geçen Yıl', '', '', '', '', '', '', '', '', '', '', 'Bu Ay'],
+            datasets: [{
+                label: 'Kargo Sayısı',
+                data: [CargoNumber12, CargoNumber11, CargoNumber10, CargoNumber9, CargoNumber8, CargoNumber7, CargoNumber6, CargoNumber5, CargoNumber4, CargoNumber3, CargoNumber2, CargoNumber1],
+                type: 'line'
+            }]
+        },
+    });
+</script>

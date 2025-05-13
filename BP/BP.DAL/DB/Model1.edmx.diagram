@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9d37f3ba8f874b00a62113a61dcbb65d" Name="Diagram1" ZoomLevel="70">
+        <EntityTypeShape EntityType="BPModel.Cargo" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.City" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.Company" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.CompanyCargo" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.CompanyUser" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.District" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.Quarter" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.Receiver" Width="1.5" PointX="7.5" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.ReceiverAdress" Width="1.5" PointX="9.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.Shipping" Width="1.5" PointX="12" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.TaxAdministraition" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.User" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="BPModel.FK_CompanyCargo_Cargo" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Company_City" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Company_City1" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_District_City" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_ReceiverAdress_City" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Company_District" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Company_TaxAdministraition" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_CompanyCargo_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_CompanyUser_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Receiver_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Receiver_Company1" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Quarter_District" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_ReceiverAdress_District" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_ReceiverAdress_Quarter" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_ReceiverAdress_Receiver" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_ReceiverAdress_Receiver1" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Shipping_Receiver" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Shipping_ReceiverAdress" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.FK_Shipping_Company" />
+        <AssociationConnector Association="BPModel.FK_Company_District1" />
+        <EntityTypeShape EntityType="BPModel.ShippingLog" Width="1.5" PointX="14.25" PointY="8" />
+        <AssociationConnector Association="BPModel.FK_ShippingLog_Cargo" />
+        <AssociationConnector Association="BPModel.FK_ShippingLog_Shipping" />
+        <AssociationConnector Association="BPModel.FK_Shipping_Cargo" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

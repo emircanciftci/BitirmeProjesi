@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Firma Listesi";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ShippingInsertVM
+
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">FİRMA LİSTESİ</h4>
+<div class="col-12 mt-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="single-table">
+                <div class="data-tables">
+                    <table id="dataTable" class="text-left deneme">
+                        <thead class="text-uppercase">
+                            <tr class="alert-secondary">
+                                <th hidden></th>    
+                                <th class="col-1 ">Düzenle</th>
+                                <th>Başlama Tarihi</th>
+                                <th>Ana Firma</th>
+                                <th>Kısa Adı</th>
+                                <th>Muhasebe Kodu</th>
+                                <th>Vergi Dairesi</th>
+                                <th>Vergi No</th>
+                                <th>Durumu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CompanyList)
+                            {
+                                <tr>
+                                    <td hidden></td>
+                                    <td>
+                                        <ul class="d-flex justify-content-center">
+                                            <li class="mr-3"><a href="/Company/Update/@item.ID" class="border text-secondary"><i class="fa fa-edit"></i></a></li>
+                                        </ul>
+                                    </td>
+                                    <th class="border">@item.ContractStart</th>
+                                    <td class="border">@item.CompanyNameTitle</td>
+                                    <td class="border">@item.CompanyName</td>
+                                    <td class="border">@item.AccountingCode</td>
+                                    <td class="border">@item.TaxAdministrationID</td>
+                                    <td class="border">@item.TaxNumber</td>
+                                    <td class="border">
+                                        @if (item.IsActive == true)
+                                        {
+                                            <a onclick="durum(@item.ID)" href="#"><span class="badge badge-success">Aktif</span></a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="durum(@item.ID)" href="#"><span class="badge badge-danger">Pasif</span></a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function durum(ID) {
+        $.get("/Company/UserStatuss/" + ID, function (result) {
+            if (result) {
+                sucMess("Durum Aktif olarak değiştirildi", "İşlem Başarılı");
+                setInterval(function () {
+                    window.location.reload()
+                }, 2000)
+            }
+            else {
+                sucMess("Durum Pasif olarak değiştirildi", "İşlem Başarılı");
+                setInterval(function () {
+                    window.location.reload()
+                }, 2000)
+            }
+        })
+    }
+</script>

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Alıcı Ekle";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model List<BP.DAL.DB.Company>
+
+
+<h1 style="padding: 7px 40px;" class="header-title col-12 alert-success">ALICI EKLE</h1>
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="~/Receiver/ReceiverAdd/">
+                <div class="form-group">
+                    <select required id="CompanyID" name="CompanyID" class="form-control">
+                        <option value="">Gönderici Firma</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.ID">@item.CompanyName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input required type="text" class="form-control" name="ReceiverName" id="ReceiverName" placeholder="Ad">
+                </div>
+                <div class="form-group">
+                    <input required type="text" class="form-control" name="ReceiverPhone" id="ReceiverPhone" placeholder="Telefon">
+                </div>
+                <div class="form-group">
+                    <select id="RCompanyID" name="RCompanyID" class="form-control">
+                        <option value="">Alıcı Firma</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.ID">@item.CompanyName</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+

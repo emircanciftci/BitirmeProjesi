@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Mahalleler";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ShippingInsertVM
+
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">MAHALLE LİSTESİ</h4>
+<div class="col-12">
+    <a onclick="ekle()" style="width:100px; height:40px;" class="btn btn-success float-right mr-2" href="#"><i class="ti ti-plus"></i> Ekle</a>
+</div>
+<div class="col-12">
+    <div class="card m-2">
+        <div class="single-table">
+            <div class="data-tables">
+                <table id="dataTable2" class="text-left deneme">
+                    <thead class="text-uppercase text-center">
+                        <tr class="alert-secondary">
+                            <th hidden></th>
+                            <th>Durumu</th>
+                            <th>Adı</th>
+                            <th>İlçe Adı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.QuarterList)
+                        {
+                            <tr class="text-center">
+                                <td hidden></td>
+                                <td class="border">
+                                    @if (item.IsActive == true)
+                                    {
+                                        <a onclick="durum(@item.ID)" href="#"><span class="badge badge-success">Aktif</span></a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="durum(@item.ID)" href="#"><span class="badge badge-danger">Pasif</span></a>
+                                    }
+                                </td>
+                                <th class="border">@item.QuarterName</th>
+                                <th class="border">@item.DistrictID</th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mahalle Ekle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body form-control">
+                <label class="label-control font-weight-bold">İlçesi</label>
+                <select class="form-control " id="mahalle">
+                    <option value=""></option>
+                    @foreach (var item in Model.DistrictList)
+                    {
+                        <option value="@item.ID">@item.DistrictName</option>
+                    }
+                </select>
+                <label class="label-control mt-2 font-weight-bold">Yeni Mahalle</label>
+                <input style="height:40px" class="form-control col-12" id="kaydet" type="text" name="name" value="" />
+            </div>
+            <div class="modal-footer">
+                <a onclick="kayd()" class="btn btn-primary text-white">Kaydet</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ekle() {
+        $('#myModal').modal("show");
+    }
+
+    function kayd() {
+        var aa = $("#kaydet").val();
+        var ab = $("#mahalle").val();
+        $.ajax({
+            type: "POST",
+            url: "/Settings/Quarteradd/",
+            data: { aa, ab },
+            success: function (result) {
+                if (result) {
+                    sucMess("Mahalle Kaydedildi", "İşlem Başarılı");
+                    setInterval(function () {
+                        window.location.replace("/Settings/Quarter");
+                    }, 2000)
+                }
+                else {
+                    window.location.replace("/Settings/Quarter");
+                }
+            }
+        });
+    }
+    function durum(ID) {
+        $.get("/Settings/QuarterStatus/" + ID, function (result) {
+            if (result) {
+                sucMess("Durum Aktif olarak değiştirildi", "İşlem Başarılı");
+            }
+            else {
+                sucMess("Durum Pasif olarak değiştirildi", "İşlem Başarılı");
+            }
+            window.location.reload()
+        })
+    }
+</script>

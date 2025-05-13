@@ -1,0 +1,374 @@
+﻿
+@{
+    ViewBag.Title = "Firma Güncelle";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.CompanyVM
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
+    <!-- Custom CSS -->
+    <link href="~/assets/matrixadmin/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+    <link href="~/assets/matrixadmin/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+    <link href="~/assets/matrixadmin/dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">FİRMA GÜNCELLE</h4>
+
+    <div class="card">
+        <div class="card-body wizard-content">
+            <h6 class="card-subtitle"></h6>
+            <form id="example-form" action="#" class="m-t-40">
+                <div>
+                    <h3>Firma Bilgileri</h3>
+                    <section>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" hidden name="ID" id="ID" value="@Model.ID" />
+                                <label>Ticari Ünvan</label>
+                                <input class="form-control" type="text" value="@Model.CompanyNameTitle" required id="21">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Muhasebe Kodu</label>
+                                <input class="form-control" type="text" value="@Model.AccountingCode" id="24">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>Marka Ünvanı</label>
+                                <input class="form-control" type="text" required value="@Model.CompanyName" id="20">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Muhasebe Mail</label>
+                                <input class="form-control" type="text" value="@Model.Mail" id="25">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>Şube Seçiniz</label>
+                                <select id="cityID11" class="form-control" onchange="getdistrictlist1()">
+                                    <option value=""></option>
+                                    @foreach (var item in Model.CityList)
+                                    {
+                                        if (item.ID == Model.BranchID)
+                                        {
+                                            <option selected value="@item.ID">@item.CityName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.ID">@item.CityName</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Vergi Dairesi</label>
+                                <select class="form-control" required id="26">
+                                    <option value=""></option>
+                                    @foreach (var item in Model.TaxList)
+                                    {
+                                        if (item.ID == Model.TaxAdministrationID)
+                                        {
+                                            <option selected value="@item.ID">@item.TaxName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.ID">@item.TaxName</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>Çıkış Deposu</label>
+                                <select class="form-control" id="districtID11">
+                                    @foreach (var item in Model.DistrictList)
+                                    {
+                                        if (item.CityID == Model.BranchID)
+                                        {
+                                            if (item.ID == Model.OutLocationID)
+                                            {
+                                                <option selected value="@item.ID">@item.DistrictName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.ID">@item.DistrictName</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Vergi Numarası</label>
+                                <input class="form-control" type="text" required value="@Model.TaxNumber" id="27">
+                            </div>
+                        </div>
+                        <section>
+                            <input type="checkbox" onchange="chack()" value="" id="28" />
+                            <label>Aktif</label>
+                        </section>
+                    </section>
+                    <h3>Firma Adres Bilgileri</h3>
+                    <section>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>Yetkili</label>
+                                <input class="form-control" type="text" required value="@Model.AuthorizedName" id="29">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Telefon</label>
+                                <input class="form-control" type="text" required value="@Model.AuthorizedPhone" id="30">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>İl</label>
+                                <select id="cityID1" class="form-control" required onchange="getdistrictlist()">
+                                    <option value=""></option>
+                                    @foreach (var item in Model.CityList)
+                                    {
+                                        if (item.ID == Model.AuthorizedCityID)
+                                        {
+                                            <option selected value="@item.ID">@item.CityName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.ID">@item.CityName</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>İlçe</label>
+                                <select class="form-control" required id="districtID1">
+                                    @foreach (var item in Model.DistrictList)
+                                    {
+                                        if (item.CityID == Model.AuthorizedCityID)
+                                        {
+                                            if (item.ID == Model.AuthorizedDistrictID)
+                                            {
+                                                <option selected value="@item.ID">@item.DistrictName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.ID">@item.DistrictName</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <label>Adres</label>
+                        <textarea class="col-md-12 form-control" required type="text" value="@Model.AuthorizedAdress" id="31">@Model.AuthorizedAdress</textarea>
+                    </section>
+                    <h3>Fiyat Tanımlama</h3>
+                    <section>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label>Sigorta Oranı</label>
+                                <input class="form-control" required type="text" value="@Model.İnsuranceRate" id="32">
+                            </div>
+                        </div>
+                        <div class="form-row m-auto">
+                            <div class="col-md-12 mb-3">
+                                <label>Kargo Ücreti</label>
+                                <input class="form-control" required type="text" value="@Model.CargoPrice" id="33">
+                            </div>
+                        </div>
+                    </section>
+                    <h3>Sözleşme Ekle</h3>
+                    <section>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>Sözleşmeyi Yapan</label>
+                                <input class="form-control" disabled type="text" value="@Model.UserName" id="34">
+                            </div>
+                        </div>
+                        <div  class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label>Müşteri Türü</label>
+                                <select class="form-control" id="35">
+                                    <option value="@Model.CustomerType">@Model.CustomerType</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-3 mb-3">
+                                <label>Süzleşme Başlangıcı</label>
+                                <input class="form-control" type="date" id="36">
+                            </div>
+                            <div class="col-md-4 mb-3 ml-3">
+                                <label>Sözleşme Yükle</label>
+                                <input class="form-control-file mt-1" value="@Model.ContractFile" type="file" id="37" />
+                                <a href="@Model.ContractFile">@Model.ContractFile</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="~/assets/matrixadmin/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/assets/matrixadmin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/assets/matrixadmin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="~/assets/matrixadmin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/assets/matrixadmin/assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="~/assets/matrixadmin/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/assets/matrixadmin/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/assets/matrixadmin/dist/js/custom.min.js"></script>
+    <!-- this page js -->
+    <script src="~/assets/matrixadmin/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="~/assets/matrixadmin/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        // Basic Example with form
+        var form = $("#example-form");
+        form.validate({
+            errorPlacement: function errorPlacement(error, element) { element.before(error); },
+            rules: {
+                confirm: {
+                    equalTo: "#password"
+                }
+            }
+        });
+        form.children("div").steps({
+            headerTag: "h3",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                form.validate().settings.ignore = ":disabled,:hidden";
+                return form.valid();
+            },
+            onFinishing: function (event, currentIndex) {
+                form.validate().settings.ignore = ":disabled";
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex) {
+                var CompanyName = $("#20").val();
+                var CompanyNameTitle = $("#21").val();
+                var OutLocationID = $("#districtID11").val();
+                var BranchID = $("#cityID11").val();
+                var AccountingCode = $("#24").val();
+                var Mail = $("#25").val();
+                var TaxAdministrationID = $("#26").val();
+                var TaxNumber = $("#27").val();
+                var IsActive = $("#28").val();
+                var AuthorizedName = $("#29").val();
+                var AuthorizedPhone = $("#30").val();
+                var AuthorizedCityID = $("#cityID1").val();
+                var AuthorizedDistrictID = $("#districtID1").val();
+                var AuthorizedAdress = $("#31").val();
+                var İnsuranceRate = $("#32").val();
+                var CargoPrice = $("#33").val();
+                var PersonelName = $("#34").val();
+                var CustomerType = $("#35").val();
+                var ContractStart = $("#36").val();
+                var ContractFile = $("#37").val();
+                var ID = $("#ID").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Company/CompanyUpdate/",
+                    data: { ID, CompanyName, CompanyNameTitle, OutLocationID, BranchID, AccountingCode, Mail, TaxAdministrationID, TaxNumber, IsActive, AuthorizedName, AuthorizedPhone, AuthorizedCityID, AuthorizedDistrictID, AuthorizedAdress, İnsuranceRate, CargoPrice, PersonelName, CustomerType, ContractStart, ContractFile },
+                    success: function (deger) {
+                        if (deger) {
+                            sucMess("Firma Kaydı Başarıyla Oluşturuldu", "İşlem Başarılı");
+                            setInterval(function () {
+                                window.location.replace("/Company/Index/");
+                            }, 2000)
+                        }
+                        else {
+                            warMess("İşlem Başarışız", "Hata");
+                        }
+                    }
+                })
+            }
+        });
+
+
+
+        function getdistrictlist() {
+            var bbe = $('#cityID1').val();
+            var html = "";
+            $.get('/shipping/GetDistrictlist/' + bbe, function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    html += "<option value='" + result[i].ID + "'>" + result[i].DistrictName + "</option>"
+                }
+                $('#districtID1').html(html)
+            })
+        }
+
+    </script>
+    <script>
+        function chack() {
+            var aa = $("#28").val();
+            if (aa == null || aa == false) {
+                $("#28").attr('value', 'true');
+            }
+            else {
+                $("#28").attr('value', 'false');
+            }
+        }
+    </script>
+    <script>
+        function getdistrictlist1() {
+            var bbe = $('#cityID11').val();
+            var html = "";
+            $.get('/shipping/GetDistrictlist/' + bbe, function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    html += "<option value='" + result[i].ID + "'>" + result[i].DistrictName + "</option>"
+                }
+                $('#districtID11').html(html)
+            })
+        }
+    </script>
+    <script>
+        window.onload = function loadDate() {
+            var formattedDate = now.toISOString().slice(0, 10); 
+            dateInput.value = formattedDate;
+            document.getElementById("36").defaultValue = formattedDate;
+        };
+    </script>
+
+
+</body>
+
+</html>

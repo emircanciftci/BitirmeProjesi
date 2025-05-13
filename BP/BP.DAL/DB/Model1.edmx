@@ -1,0 +1,1400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CargoName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CompanyName" Type="nvarchar(max)" />
+          <Property Name="CompanyNameTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="OutLocationID" Type="int" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="AccountingCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="TaxAdministrationID" Type="int" />
+          <Property Name="TaxNumber" Type="nvarchar" MaxLength="15" />
+          <Property Name="AuthorizedName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AuthorizedPhone" Type="nvarchar" MaxLength="15" />
+          <Property Name="AuthorizedCityID" Type="int" />
+          <Property Name="AuthorizedDistrictID" Type="int" />
+          <Property Name="AuthorizedAdress" Type="nvarchar(max)" />
+          <Property Name="İnsuranceRate" Type="float" />
+          <Property Name="CargoPrice" Type="float" />
+          <Property Name="PersonelName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerType" Type="nvarchar" MaxLength="5" />
+          <Property Name="ContractStart" Type="date" />
+          <Property Name="ContractFile" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CompanyCargo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="CargoID" Type="int" />
+          <Property Name="CargoPrice" Type="float" />
+        </EntityType>
+        <EntityType Name="CompanyUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="UserType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CityID" Type="int" />
+          <Property Name="DistrictName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Quarter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DistrictID" Type="int" />
+          <Property Name="QuarterName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Receiver">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="ReceiverName" Type="nvarchar(max)" />
+          <Property Name="ReceiverPhone" Type="nvarchar" MaxLength="15" />
+          <Property Name="ReceiverCompanyID" Type="int" />
+        </EntityType>
+        <EntityType Name="ReceiverAdress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReceiverID" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceiverName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceiverSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceiverPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceiverCityID" Type="int" />
+          <Property Name="ReceiverDistrictID" Type="int" />
+          <Property Name="ReceiverQuarterID" Type="int" />
+          <Property Name="ReceiverAdress" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShippingDate" Type="datetime" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="ReceiverID" Type="int" />
+          <Property Name="ReceiverAdressID" Type="int" />
+          <Property Name="CargoID" Type="int" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="25" />
+          <Property Name="IntegrationType" Type="nvarchar" MaxLength="50" />
+          <Property Name="BagNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="ProductPrice" Type="float" />
+          <Property Name="Explanation" Type="nvarchar(max)" />
+          <Property Name="Available" Type="bit" />
+          <Property Name="CancelExplanation" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrackingCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CargoPrice" Type="float" />
+          <Property Name="İnsurancePrice" Type="float" />
+          <Property Name="TotalPrice" Type="float" />
+          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="50" />
+          <Property Name="VergiNumarası" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ShippingLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShippingID" Type="int" />
+          <Property Name="BagNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="LogDate" Type="datetime" />
+          <Property Name="CargoID" Type="int" />
+          <Property Name="IntegrationType" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductPrice" Type="float" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Explanation" Type="nvarchar(max)" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TaxAdministraition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaxName" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfEntry" Type="date" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" />
+          <Property Name="Title" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Company_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AuthorizedCityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_City1">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AuthorizedDistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_District1">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="OutLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_TaxAdministraition">
+          <End Role="TaxAdministraition" Type="Self.TaxAdministraition" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaxAdministraition">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="TaxAdministrationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyCargo_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="0..1" />
+          <End Role="CompanyCargo" Type="Self.CompanyCargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyCargo">
+              <PropertyRef Name="CargoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyCargo_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="CompanyCargo" Type="Self.CompanyCargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyCargo">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUser_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUser">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quarter_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Quarter" Type="Self.Quarter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quarter">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receiver_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Receiver">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receiver_Company1">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Receiver">
+              <PropertyRef Name="ReceiverCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverCityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverDistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_Quarter">
+          <End Role="Quarter" Type="Self.Quarter" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarter">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverQuarterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_Receiver">
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receiver">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_Receiver1">
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receiver">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipping_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="0..1" />
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="CargoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipping_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipping_Receiver">
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="0..1" />
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receiver">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipping_ReceiverAdress">
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="0..1" />
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReceiverAdress">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="ReceiverAdressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingLog_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="0..1" />
+          <End Role="ShippingLog" Type="Self.ShippingLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShippingLog">
+              <PropertyRef Name="CargoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingLog_Shipping">
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="0..1" />
+          <End Role="ShippingLog" Type="Self.ShippingLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipping">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShippingLog">
+              <PropertyRef Name="ShippingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BPModelStoreContainer">
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyCargo" EntityType="Self.CompanyCargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyUser" EntityType="Self.CompanyUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quarter" EntityType="Self.Quarter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receiver" EntityType="Self.Receiver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReceiverAdress" EntityType="Self.ReceiverAdress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShippingLog" EntityType="Self.ShippingLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaxAdministraition" EntityType="Self.TaxAdministraition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Company_City" Association="Self.FK_Company_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_City1" Association="Self.FK_Company_City1">
+            <End Role="City" EntitySet="City" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_District" Association="Self.FK_Company_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_District1" Association="Self.FK_Company_District1">
+            <End Role="District" EntitySet="District" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_TaxAdministraition" Association="Self.FK_Company_TaxAdministraition">
+            <End Role="TaxAdministraition" EntitySet="TaxAdministraition" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyCargo_Cargo" Association="Self.FK_CompanyCargo_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="CompanyCargo" EntitySet="CompanyCargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyCargo_Company" Association="Self.FK_CompanyCargo_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanyCargo" EntitySet="CompanyCargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyUser_Company" Association="Self.FK_CompanyUser_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanyUser" EntitySet="CompanyUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_City" Association="Self.FK_District_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="District" EntitySet="District" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quarter_District" Association="Self.FK_Quarter_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Quarter" EntitySet="Quarter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receiver_Company" Association="Self.FK_Receiver_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Receiver" EntitySet="Receiver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receiver_Company1" Association="Self.FK_Receiver_Company1">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Receiver" EntitySet="Receiver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_City" Association="Self.FK_ReceiverAdress_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_District" Association="Self.FK_ReceiverAdress_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_Quarter" Association="Self.FK_ReceiverAdress_Quarter">
+            <End Role="Quarter" EntitySet="Quarter" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_Receiver" Association="Self.FK_ReceiverAdress_Receiver">
+            <End Role="Receiver" EntitySet="Receiver" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_Receiver1" Association="Self.FK_ReceiverAdress_Receiver1">
+            <End Role="Receiver" EntitySet="Receiver" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_Cargo" Association="Self.FK_Shipping_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Shipping" EntitySet="Shipping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_Company" Association="Self.FK_Shipping_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Shipping" EntitySet="Shipping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_Receiver" Association="Self.FK_Shipping_Receiver">
+            <End Role="Receiver" EntitySet="Receiver" />
+            <End Role="Shipping" EntitySet="Shipping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_ReceiverAdress" Association="Self.FK_Shipping_ReceiverAdress">
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+            <End Role="Shipping" EntitySet="Shipping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingLog_Cargo" Association="Self.FK_ShippingLog_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="ShippingLog" EntitySet="ShippingLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingLog_Shipping" Association="Self.FK_ShippingLog_Shipping">
+            <End Role="Shipping" EntitySet="Shipping" />
+            <End Role="ShippingLog" EntitySet="ShippingLog" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CargoName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CompanyCargo" Relationship="Self.FK_CompanyCargo_Cargo" FromRole="Cargo" ToRole="CompanyCargo" />
+          <NavigationProperty Name="ShippingLog" Relationship="BPModel.FK_ShippingLog_Cargo" FromRole="Cargo" ToRole="ShippingLog" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Shipping" Relationship="BPModel.FK_Shipping_Cargo" FromRole="Cargo" ToRole="Shipping" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Company_City" FromRole="City" ToRole="Company" />
+          <NavigationProperty Name="Company1" Relationship="Self.FK_Company_City1" FromRole="City" ToRole="Company" />
+          <NavigationProperty Name="District" Relationship="Self.FK_District_City" FromRole="City" ToRole="District" />
+          <NavigationProperty Name="ReceiverAdress" Relationship="Self.FK_ReceiverAdress_City" FromRole="City" ToRole="ReceiverAdress" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyNameTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OutLocationID" Type="Int32" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="AccountingCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaxAdministrationID" Type="Int32" />
+          <Property Name="TaxNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorizedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorizedPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorizedCityID" Type="Int32" />
+          <Property Name="AuthorizedDistrictID" Type="Int32" />
+          <Property Name="AuthorizedAdress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="İnsuranceRate" Type="Double" />
+          <Property Name="PersonelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerType" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ContractStart" Type="DateTime" Precision="0" />
+          <Property Name="ContractFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Company_City" FromRole="Company" ToRole="City" />
+          <NavigationProperty Name="City1" Relationship="Self.FK_Company_City1" FromRole="Company" ToRole="City" />
+          <NavigationProperty Name="District" Relationship="Self.FK_Company_District" FromRole="Company" ToRole="District" />
+          <NavigationProperty Name="TaxAdministraition" Relationship="Self.FK_Company_TaxAdministraition" FromRole="Company" ToRole="TaxAdministraition" />
+          <NavigationProperty Name="CompanyCargo" Relationship="Self.FK_CompanyCargo_Company" FromRole="Company" ToRole="CompanyCargo" />
+          <NavigationProperty Name="CompanyUser" Relationship="Self.FK_CompanyUser_Company" FromRole="Company" ToRole="CompanyUser" />
+          <NavigationProperty Name="Receiver" Relationship="Self.FK_Receiver_Company" FromRole="Company" ToRole="Receiver" />
+          <NavigationProperty Name="Receiver1" Relationship="Self.FK_Receiver_Company1" FromRole="Company" ToRole="Receiver" />
+          <NavigationProperty Name="Shipping" Relationship="BPModel.FK_Shipping_Company" FromRole="Company" ToRole="Shipping" />
+          <Property Name="CargoPrice" Type="Double" />
+          <NavigationProperty Name="District1" Relationship="BPModel.FK_Company_District1" FromRole="Company" ToRole="District" />
+        </EntityType>
+        <EntityType Name="CompanyCargo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="CargoID" Type="Int32" />
+          <Property Name="CargoPrice" Type="Double" />
+          <NavigationProperty Name="Cargo" Relationship="Self.FK_CompanyCargo_Cargo" FromRole="CompanyCargo" ToRole="Cargo" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_CompanyCargo_Company" FromRole="CompanyCargo" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="CompanyUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_CompanyUser_Company" FromRole="CompanyUser" ToRole="Company" />
+          <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityID" Type="Int32" />
+          <Property Name="DistrictName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="Self.FK_District_City" FromRole="District" ToRole="City" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Company_District" FromRole="District" ToRole="Company" />
+          <NavigationProperty Name="Quarter" Relationship="Self.FK_Quarter_District" FromRole="District" ToRole="Quarter" />
+          <NavigationProperty Name="ReceiverAdress" Relationship="Self.FK_ReceiverAdress_District" FromRole="District" ToRole="ReceiverAdress" />
+          <NavigationProperty Name="Company1" Relationship="BPModel.FK_Company_District1" FromRole="District" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="Quarter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistrictID" Type="Int32" />
+          <Property Name="QuarterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="District" Relationship="Self.FK_Quarter_District" FromRole="Quarter" ToRole="District" />
+          <NavigationProperty Name="ReceiverAdress" Relationship="Self.FK_ReceiverAdress_Quarter" FromRole="Quarter" ToRole="ReceiverAdress" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Receiver">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="ReceiverName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverCompanyID" Type="Int32" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Receiver_Company" FromRole="Receiver" ToRole="Company" />
+          <NavigationProperty Name="Company1" Relationship="Self.FK_Receiver_Company1" FromRole="Receiver" ToRole="Company" />
+          <NavigationProperty Name="ReceiverAdress" Relationship="Self.FK_ReceiverAdress_Receiver" FromRole="Receiver" ToRole="ReceiverAdress" />
+          <NavigationProperty Name="ReceiverAdress1" Relationship="Self.FK_ReceiverAdress_Receiver1" FromRole="Receiver" ToRole="ReceiverAdress" />
+          <NavigationProperty Name="Shipping" Relationship="Self.FK_Shipping_Receiver" FromRole="Receiver" ToRole="Shipping" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ReceiverAdress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReceiverID" Type="Int32" />
+          <Property Name="ReceiverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverCityID" Type="Int32" />
+          <Property Name="ReceiverDistrictID" Type="Int32" />
+          <Property Name="ReceiverQuarterID" Type="Int32" />
+          <Property Name="ReceiverAdress1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="Self.FK_ReceiverAdress_City" FromRole="ReceiverAdress" ToRole="City" />
+          <NavigationProperty Name="District" Relationship="Self.FK_ReceiverAdress_District" FromRole="ReceiverAdress" ToRole="District" />
+          <NavigationProperty Name="Quarter" Relationship="Self.FK_ReceiverAdress_Quarter" FromRole="ReceiverAdress" ToRole="Quarter" />
+          <NavigationProperty Name="Receiver" Relationship="Self.FK_ReceiverAdress_Receiver" FromRole="ReceiverAdress" ToRole="Receiver" />
+          <NavigationProperty Name="Receiver1" Relationship="Self.FK_ReceiverAdress_Receiver1" FromRole="ReceiverAdress" ToRole="Receiver" />
+          <NavigationProperty Name="Shipping" Relationship="Self.FK_Shipping_ReceiverAdress" FromRole="ReceiverAdress" ToRole="Shipping" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShippingDate" Type="DateTime" Precision="3" />
+          <Property Name="ReceiverID" Type="Int32" />
+          <Property Name="ReceiverAdressID" Type="Int32" />
+          <Property Name="CargoID" Type="Int32" />
+          <Property Name="PaymentType" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="IntegrationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BagNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ProductPrice" Type="Double" />
+          <Property Name="Explanation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Available" Type="Boolean" />
+          <NavigationProperty Name="Receiver" Relationship="Self.FK_Shipping_Receiver" FromRole="Shipping" ToRole="Receiver" />
+          <NavigationProperty Name="ReceiverAdress" Relationship="Self.FK_Shipping_ReceiverAdress" FromRole="Shipping" ToRole="ReceiverAdress" />
+          <Property Name="CompanyID" Type="Int32" />
+          <NavigationProperty Name="Company" Relationship="BPModel.FK_Shipping_Company" FromRole="Shipping" ToRole="Company" />
+          <NavigationProperty Name="ShippingLog" Relationship="BPModel.FK_ShippingLog_Shipping" FromRole="Shipping" ToRole="ShippingLog" />
+          <Property Name="TrackingCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CargoPrice" Type="Double" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VergiNumarası" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cargo" Relationship="BPModel.FK_Shipping_Cargo" FromRole="Shipping" ToRole="Cargo" />
+          <Property Name="İnsurancePrice" Type="Double" />
+          <Property Name="TotalPrice" Type="Double" />
+          <Property Name="CancelExplanation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TaxAdministraition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaxName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Company_TaxAdministraition" FromRole="TaxAdministraition" ToRole="Company" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfEntry" Type="DateTime" Precision="0" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_CompanyCargo_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="0..1" />
+          <End Role="CompanyCargo" Type="Self.CompanyCargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyCargo">
+              <PropertyRef Name="CargoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AuthorizedCityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_City1">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverCityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AuthorizedDistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_TaxAdministraition">
+          <End Role="TaxAdministraition" Type="Self.TaxAdministraition" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaxAdministraition">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="TaxAdministrationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyCargo_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="CompanyCargo" Type="Self.CompanyCargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyCargo">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyUser_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="CompanyUser" Type="Self.CompanyUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompanyUser">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receiver_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Receiver">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receiver_Company1">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Receiver">
+              <PropertyRef Name="ReceiverCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quarter_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Quarter" Type="Self.Quarter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Quarter">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverDistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_Quarter">
+          <End Role="Quarter" Type="Self.Quarter" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quarter">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverQuarterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_Receiver">
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receiver">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReceiverAdress_Receiver1">
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="0..1" />
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receiver">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReceiverAdress">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipping_Receiver">
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="0..1" />
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receiver">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipping_ReceiverAdress">
+          <End Role="ReceiverAdress" Type="Self.ReceiverAdress" Multiplicity="0..1" />
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReceiverAdress">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="ReceiverAdressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" />
+          <EntitySet Name="City" EntityType="Self.City" />
+          <EntitySet Name="Company" EntityType="Self.Company" />
+          <EntitySet Name="CompanyCargo" EntityType="Self.CompanyCargo" />
+          <EntitySet Name="CompanyUser" EntityType="Self.CompanyUser" />
+          <EntitySet Name="District" EntityType="Self.District" />
+          <EntitySet Name="Quarter" EntityType="Self.Quarter" />
+          <EntitySet Name="Receiver" EntityType="Self.Receiver" />
+          <EntitySet Name="ReceiverAdress" EntityType="Self.ReceiverAdress" />
+          <EntitySet Name="Shipping" EntityType="Self.Shipping" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TaxAdministraition" EntityType="Self.TaxAdministraition" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_CompanyCargo_Cargo" Association="Self.FK_CompanyCargo_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="CompanyCargo" EntitySet="CompanyCargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_City" Association="Self.FK_Company_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_City1" Association="Self.FK_Company_City1">
+            <End Role="City" EntitySet="City" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_City" Association="Self.FK_District_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="District" EntitySet="District" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_City" Association="Self.FK_ReceiverAdress_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_District" Association="Self.FK_Company_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_TaxAdministraition" Association="Self.FK_Company_TaxAdministraition">
+            <End Role="TaxAdministraition" EntitySet="TaxAdministraition" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyCargo_Company" Association="Self.FK_CompanyCargo_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanyCargo" EntitySet="CompanyCargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyUser_Company" Association="Self.FK_CompanyUser_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanyUser" EntitySet="CompanyUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receiver_Company" Association="Self.FK_Receiver_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Receiver" EntitySet="Receiver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receiver_Company1" Association="Self.FK_Receiver_Company1">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Receiver" EntitySet="Receiver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quarter_District" Association="Self.FK_Quarter_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Quarter" EntitySet="Quarter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_District" Association="Self.FK_ReceiverAdress_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_Quarter" Association="Self.FK_ReceiverAdress_Quarter">
+            <End Role="Quarter" EntitySet="Quarter" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_Receiver" Association="Self.FK_ReceiverAdress_Receiver">
+            <End Role="Receiver" EntitySet="Receiver" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReceiverAdress_Receiver1" Association="Self.FK_ReceiverAdress_Receiver1">
+            <End Role="Receiver" EntitySet="Receiver" />
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_Receiver" Association="Self.FK_Shipping_Receiver">
+            <End Role="Receiver" EntitySet="Receiver" />
+            <End Role="Shipping" EntitySet="Shipping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_ReceiverAdress" Association="Self.FK_Shipping_ReceiverAdress">
+            <End Role="ReceiverAdress" EntitySet="ReceiverAdress" />
+            <End Role="Shipping" EntitySet="Shipping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_Company" Association="BPModel.FK_Shipping_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Shipping" EntitySet="Shipping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_District1" Association="BPModel.FK_Company_District1">
+            <End Role="District" EntitySet="District" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <EntitySet Name="ShippingLog" EntityType="BPModel.ShippingLog" />
+          <AssociationSet Name="FK_ShippingLog_Cargo" Association="BPModel.FK_ShippingLog_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="ShippingLog" EntitySet="ShippingLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingLog_Shipping" Association="BPModel.FK_ShippingLog_Shipping">
+            <End Role="Shipping" EntitySet="Shipping" />
+            <End Role="ShippingLog" EntitySet="ShippingLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipping_Cargo" Association="BPModel.FK_Shipping_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Shipping" EntitySet="Shipping" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Shipping_Company">
+          <End Type="BPModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="BPModel.Shipping" Role="Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_District1">
+          <End Type="BPModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="BPModel.Company" Role="Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="OutLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ShippingLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShippingID" Type="Int32" />
+          <Property Name="BagNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LogDate" Type="DateTime" Precision="3" />
+          <Property Name="CargoID" Type="Int32" />
+          <Property Name="IntegrationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductPrice" Type="Double" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cargo" Relationship="BPModel.FK_ShippingLog_Cargo" FromRole="ShippingLog" ToRole="Cargo" />
+          <NavigationProperty Name="Shipping" Relationship="BPModel.FK_ShippingLog_Shipping" FromRole="ShippingLog" ToRole="Shipping" />
+          <Property Name="Explanation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_ShippingLog_Cargo">
+          <End Type="BPModel.Cargo" Role="Cargo" Multiplicity="0..1" />
+          <End Type="BPModel.ShippingLog" Role="ShippingLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShippingLog">
+              <PropertyRef Name="CargoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingLog_Shipping">
+          <End Type="BPModel.Shipping" Role="Shipping" Multiplicity="0..1" />
+          <End Type="BPModel.ShippingLog" Role="ShippingLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipping">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShippingLog">
+              <PropertyRef Name="ShippingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipping_Cargo">
+          <End Type="BPModel.Cargo" Role="Cargo" Multiplicity="0..1" />
+          <End Type="BPModel.Shipping" Role="Shipping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shipping">
+              <PropertyRef Name="CargoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BPModelStoreContainer" CdmEntityContainer="BPEntities">
+          <EntitySetMapping Name="Cargo">
+            <EntityTypeMapping TypeName="BPModel.Cargo">
+              <MappingFragment StoreEntitySet="Cargo">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CargoName" ColumnName="CargoName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="BPModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="BPModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CargoPrice" ColumnName="CargoPrice" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyNameTitle" ColumnName="CompanyNameTitle" />
+                <ScalarProperty Name="OutLocationID" ColumnName="OutLocationID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="AccountingCode" ColumnName="AccountingCode" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="TaxAdministrationID" ColumnName="TaxAdministrationID" />
+                <ScalarProperty Name="TaxNumber" ColumnName="TaxNumber" />
+                <ScalarProperty Name="AuthorizedName" ColumnName="AuthorizedName" />
+                <ScalarProperty Name="AuthorizedPhone" ColumnName="AuthorizedPhone" />
+                <ScalarProperty Name="AuthorizedCityID" ColumnName="AuthorizedCityID" />
+                <ScalarProperty Name="AuthorizedDistrictID" ColumnName="AuthorizedDistrictID" />
+                <ScalarProperty Name="AuthorizedAdress" ColumnName="AuthorizedAdress" />
+                <ScalarProperty Name="İnsuranceRate" ColumnName="İnsuranceRate" />
+                <ScalarProperty Name="PersonelName" ColumnName="PersonelName" />
+                <ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
+                <ScalarProperty Name="ContractStart" ColumnName="ContractStart" />
+                <ScalarProperty Name="ContractFile" ColumnName="ContractFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyCargo">
+            <EntityTypeMapping TypeName="BPModel.CompanyCargo">
+              <MappingFragment StoreEntitySet="CompanyCargo">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CargoID" ColumnName="CargoID" />
+                <ScalarProperty Name="CargoPrice" ColumnName="CargoPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyUser">
+            <EntityTypeMapping TypeName="BPModel.CompanyUser">
+              <MappingFragment StoreEntitySet="CompanyUser">
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="District">
+            <EntityTypeMapping TypeName="BPModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quarter">
+            <EntityTypeMapping TypeName="BPModel.Quarter">
+              <MappingFragment StoreEntitySet="Quarter">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="QuarterName" ColumnName="QuarterName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receiver">
+            <EntityTypeMapping TypeName="BPModel.Receiver">
+              <MappingFragment StoreEntitySet="Receiver">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="ReceiverPhone" ColumnName="ReceiverPhone" />
+                <ScalarProperty Name="ReceiverCompanyID" ColumnName="ReceiverCompanyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReceiverAdress">
+            <EntityTypeMapping TypeName="BPModel.ReceiverAdress">
+              <MappingFragment StoreEntitySet="ReceiverAdress">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="ReceiverSurname" ColumnName="ReceiverSurname" />
+                <ScalarProperty Name="ReceiverPhone" ColumnName="ReceiverPhone" />
+                <ScalarProperty Name="ReceiverCityID" ColumnName="ReceiverCityID" />
+                <ScalarProperty Name="ReceiverDistrictID" ColumnName="ReceiverDistrictID" />
+                <ScalarProperty Name="ReceiverQuarterID" ColumnName="ReceiverQuarterID" />
+                <ScalarProperty Name="ReceiverAdress1" ColumnName="ReceiverAdress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shipping">
+            <EntityTypeMapping TypeName="BPModel.Shipping">
+              <MappingFragment StoreEntitySet="Shipping">
+                <ScalarProperty Name="CancelExplanation" ColumnName="CancelExplanation" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="İnsurancePrice" ColumnName="İnsurancePrice" />
+                <ScalarProperty Name="VergiNumarası" ColumnName="VergiNumarası" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="CargoPrice" ColumnName="CargoPrice" />
+                <ScalarProperty Name="TrackingCode" ColumnName="TrackingCode" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+                <ScalarProperty Name="ReceiverAdressID" ColumnName="ReceiverAdressID" />
+                <ScalarProperty Name="CargoID" ColumnName="CargoID" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="IntegrationType" ColumnName="IntegrationType" />
+                <ScalarProperty Name="BagNumber" ColumnName="BagNumber" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BPModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxAdministraition">
+            <EntityTypeMapping TypeName="BPModel.TaxAdministraition">
+              <MappingFragment StoreEntitySet="TaxAdministraition">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TaxName" ColumnName="TaxName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="BPModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="DateOfEntry" ColumnName="DateOfEntry" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShippingLog">
+            <EntityTypeMapping TypeName="BPModel.ShippingLog">
+              <MappingFragment StoreEntitySet="ShippingLog">
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="Explanation" ColumnName="Explanation" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="IntegrationType" ColumnName="IntegrationType" />
+                <ScalarProperty Name="CargoID" ColumnName="CargoID" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="BagNumber" ColumnName="BagNumber" />
+                <ScalarProperty Name="ShippingID" ColumnName="ShippingID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

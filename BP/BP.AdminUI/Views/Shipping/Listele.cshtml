@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Listele";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@model BP.AdminUI.Models.ShippingInsertVM1
+<head>
+    <link rel="stylesheet" href="~/assets/newtable/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/newtable/css/data-table/bootstrap-table.css">
+</head>
+<div class="data-table-area col-12 mt-2 ml-2 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar">
+                                <a class="btn btn-info" href="#">Barkod Çıkart</a>
+                            </div>
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                   data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th style="width:45px" data-field="state" data-checkbox="true"></th>
+                                        <th data-field="id">Tarih</th>
+                                        <th data-field="name">Gönderi No</th>
+                                        <th data-field="email">Takip Kodu</th>
+                                        <th data-field="phone">Entegrasyon Türü</th>
+                                        <th data-field="complete">Gönderici</th>
+                                        <th data-field="task">Fatura Ünvanı</th>
+                                        <th data-field="date">Alıcı</th>
+                                        <th data-field="price">Alıcı Adres</th>
+                                        <th>Kargo Şirketi</th>
+                                        <th>Poşet No</th>
+                                        <th>Ödeme Türü</th>
+                                        <th>Ürün Değeri</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ShippingList)
+                                    {
+                                        string ldkNo = "LDK" + item.ID;
+                                        <tr class="text-center">
+                                            <td></td>
+                                            <td>@item.ShippingDate.Value.ToShortDateString()</td>
+                                            <td>@ldkNo</td>
+                                            <td>
+                                                @if (item.IntegrationType == "Entegrasyonsuz")
+                                                {
+                                                    @item.TrackingCode <a href="#"><i class="ti ti-pencil"></i></a>
+                                                }
+                                                else
+                                                {
+                                                    @item.TrackingCode
+                                                }
+                                            </td>
+                                            <td>@item.IntegrationType</td>
+                                            <td>@item.Company.CompanyName</td>
+                                            @if (item.PaymentType == "Alıcı Ödeme")
+                                            {
+                                                <td>@item.Receiver.Company.CompanyNameTitle</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@item.Company.CompanyNameTitle</td>
+                                            }
+                                            <td>@item.Receiver.ReceiverName</td>
+                                            <td>
+                                                @if (item.ReceiverAdress == null)
+                                                {
+                                                    <span class="bg-danger text-white">Adres Bulunamadı</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        @item.ReceiverAdress.Title,
+                                                        (@item.ReceiverAdress.ReceiverName @item.ReceiverAdress.ReceiverSurname,
+                                                        @item.ReceiverAdress.ReceiverPhone,
+                                                        @item.ReceiverAdress.City.CityName,
+                                                        @item.ReceiverAdress.District.DistrictName,
+                                                        @item.ReceiverAdress.Quarter.QuarterName,
+                                                        @item.ReceiverAdress.ReceiverAdress1)
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>@item.Cargo.CargoName</td>
+                                            <td>@item.BagNumber</td>
+                                            <td>@item.PaymentType</td>
+                                            <td>@item.ProductPrice</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/newtable/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-table.js"></script>
+<script src="~/assets/newtable/js/data-table/tableExport.js"></script>
+<script src="~/assets/newtable/js/data-table/data-table-active.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-table-editable.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-editable.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-table-resizable.js"></script>
+<script src="~/assets/newtable/js/data-table/colResizable-1.5.source.js"></script>
+<script src="~/assets/newtable/js/data-table/bootstrap-table-export.js"></script>
+
+

@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Kullanıcı Listesi";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model List<BP.DAL.DB.CompanyUser>
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">FİRMA KULLANICI LİSTESİ</h4>
+<div class="col-12 mt-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="single-table">
+                <div class="data-tables">
+                    <table id="dataTable2" class="text-left deneme">
+                        <thead class="text-uppercase">
+                            <tr class="alert-secondary">
+                                <th hidden></th>
+                                <th class="col-1 ">Düzenle</th>
+                                <th>Firma</th>
+                                <th>Email</th>
+                                <th>Adı-Soyadı</th>
+                                <th>Kullanıcı Türü</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td hidden></td>
+                                    <td>
+                                        <ul class="d-flex justify-content-center">
+                                            <li class="mr-3"><a href="/company/updatee/@item.ID" class="border text-secondary"><i class="fa fa-edit"></i></a></li>
+                                        </ul>
+                                    </td>
+                                    <th class="border">@item.Company.CompanyName</th>
+                                    <td class="border">@item.Mail</td>
+                                    <td class="border">@item.Name</td>
+                                    <td class="border">@item.UserType</td>
+                                    <td class="border">
+                                        @if (item.IsActive == true)
+                                        {
+                                            <a onclick="durum(@item.ID)" href="#"><span class="badge badge-success">Aktif</span></a>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="durum(@item.ID)" href="#"><span class="badge badge-danger">Pasif</span></a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function durum(ID) {
+        $.get("/Company/UserStatus/" + ID, function (result) {
+            if (result) {
+                sucMess("Durum Aktif olarak değiştirildi", "İşlem Başarılı");
+                setInterval(function () {
+                    window.location.reload()
+                }, 2000)
+            }
+            else {
+                sucMess("Durum Pasif olarak değiştirildi", "İşlem Başarılı");
+                setInterval(function () {
+                    window.location.reload()
+                }, 2000)
+            }
+        })
+    }
+</script>
+

@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Alıcı Adres Ekle";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ReceiverAdressVM
+<h1 style="padding: 7px 40px;" class="header-title col-12 alert-success">ALICI ADRES EKLE</h1>
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="~/Receiver/ReceiverAddd/">
+                <div class="form row ml-2 mr-2 mt-3">
+                    <div class="col-md-12 mb-3">
+                        <label class="alert-success col-1">Alıcı</label>
+                        <select id="ReceiverID" name="ReceiverID1" class="form-control">
+                            <option disabled selected>Alıcı Seçiniz</option>
+                            @foreach (var item in Model.recelist)
+                            {
+                                <option value="@item.ID">@item.ReceiverName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form row ml-2 mr-2 mt-3">
+                    <div class="col-md-12 mb-3">
+                        <label class="border alert-success col-2">Adres Bilgisi</label>
+                        <input class="form-control" type="text" name="Title" id="Title" value="" placeholder="Adres Başlığı*" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input class="form-control" type="text" name="name" id="name" value="" placeholder="Ad*" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input class="form-control" type="text" name="lastname" id="lastname" value="" placeholder="Soyad*" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input class="form-control" type="number" name="phone" id="phone" value="" placeholder="Telefon*" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <select id="cityID1" name="cityID1" onchange="getdistrictlist()" class="form-control">
+                            @foreach (var item in Model.citylist)
+                            {
+                                <option value="@item.ID">@item.CityName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <select class="form-control" name="districtID1" id="districtID1" onchange="getquarterlist()">
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <select class="form-control" name="QuarterID1" id="QuarterID1">
+                        </select>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <input class="form-control" style="padding: 30px 30px;" name="adress" id="adress" type="text" placeholder="Adres*" value="@Model.adress" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    ///il ilçe mahalle
+
+    function getdistrictlist() {
+        var bbe = $('#cityID1').val();
+        var html = "";
+        $.get('/shipping/GetDistrictlist/' + bbe, function (result) {
+            for (var i = 0; i < result.length; i++) {
+                html += "<option value='" + result[i].ID + "'>" + result[i].DistrictName + "</option>"
+            }
+            $('#districtID1').html(html);
+        })
+    }
+    function getquarterlist() {
+        var cc = $('#districtID1').val();
+        var html = "";
+        $.get('/shipping/GetQuarterlist/' + cc, function (result) {
+            for (var i = 0; i < result.length; i++) {
+                html += " <option value='" + result[i].ID + "'>" + result[i].QuarterName + "</option>"
+            }
+            $('#QuarterID1').html(html);
+        })
+    }
+</script>
+

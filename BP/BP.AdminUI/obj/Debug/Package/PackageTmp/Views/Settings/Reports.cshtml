@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ShippingInsertVM
+
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">SATIŞ RAPORU</h4>
+<div class="col-12">
+    <div class="card">
+        <div class="col-12 mt-2 row">
+            <div class="col-md-2">
+                <label>Firma Adı</label>
+                <select class="form-control" id="companyID">
+                    <option value=""></option>
+                    @foreach (var item in Model.CompanyList)
+                    {
+                        <option value="@item.ID">@item.CompanyName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>İşlem Başlangıç Tarihi</label>
+                <input class="form-control" type="date" value="" id="bas">
+            </div>
+            <div class="col-md-2 row">
+                <label>İşlem Bitiş Tarihi</label>
+                <input class="form-control" type="date" value="" id="bit">
+            </div>
+            <div class="col-2 mt-3">
+                <br />
+                <a class="btn-xs btn btn-success disabled" href="#">Listele</a>
+            </div>
+        </div>
+    </div>
+    <div class="card m-2 mt-4">
+        <div class="single-table">
+            <div class="data-tables">
+                <table id="dataTable2" class="text-left deneme">
+                    <thead class="text-uppercase text-center">
+                        <tr class="alert-secondary">
+                            <th hidden></th>
+                            <th>Firma Adı</th>
+                            <th>Gönderi Sayısı</th>
+                            <th>Müşteri Sayısı</th>
+                            <th>İlçe Adı</th>
+                            <th>Toplam Ciro</th>
+                            <th>Toplam Kargo Maaliyeti</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr class="text-center">
+                            <td hidden></td>
+                            <th class="border"></th>
+                            <th class="border"></th>
+                            <th class="border"></th>
+                            <th class="border"></th>
+                            <th class="border"></th>
+                            <th class="border"></th>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ara() {
+        var comp = $("#companyID").val();
+        var bas = $("#companyID").val();
+        var bit = $("#companyID").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Settings/Filtre",
+            data: { comp, bas, bit },
+            success: function (result) {
+                if (result) {
+
+                }
+                else {
+                    alert("Tekrar Deneyiniz")
+                }
+            }
+        })
+    }
+</script>
+

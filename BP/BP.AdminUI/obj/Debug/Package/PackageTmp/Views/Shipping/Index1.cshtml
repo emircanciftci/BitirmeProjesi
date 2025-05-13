@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Log Listesi";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ShippingInsertVM
+
+<h4 style="padding: 7px 40px;" class="header-title col-12 alert-success">GÖNDERİ LOG LİSTESİ</h4>
+<div class="col-12">
+    <div class="card-body">
+
+        <div class="data-tables">
+            <table id="dataTable" class="text-lg-left deneme">
+                <thead class="bg-light text-capitalize">
+                    <tr class="text-center">
+                        <th hidden></th>
+                        <th>İşlem Tarihi</th>
+                        <th>LDK Numarası</th>
+                        <th>Poşet Numarası</th>
+                        <th>Kargo Firması</th>
+                        <th>Entegrasyon Türü</th>
+                        <th>Ödeme Türü</th>
+                        <th>Ürün Değeri</th>
+                        <th>Açıklama</th>
+                        <th>Durumu</th>
+                        <th>İşlem Yapan Kullanıcı</th>
+                        <th hidden></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShippingLogList)
+                    {
+                        string aa = "LDK";
+                        <tr class="text-center">
+                            <th hidden></th>
+                            <td>@item.LogDate.Value.ToShortDateString()</td>
+                            <td>@aa@item.ShippingID</td>
+                            <td>@item.BagNumber</td>
+                            <td>@item.Cargo.CargoName</td>
+                            <td>@item.IntegrationType</td>
+                            <td>@item.PaymentType</td>
+                            <td>@item.ProductPrice$</td>
+                            <td>@item.Explanation</td>
+                            @if (item.Available != null && item.Available != false)
+                            {
+                                <td>Aktif</td>
+                            }
+                            else
+                            {
+                                <td>İptal</td>
+                            }
+                            <td>@item.UserName</td>
+                            <td hidden></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

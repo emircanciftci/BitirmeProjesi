@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Alıcı Güncelle";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.ReceiverUpdateVM
+<h1 style="padding: 7px 40px;" class="header-title col-12 alert-success">ALICI GÜNCELLEME</h1>
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="~/Receiver/ReceiverUpdate/">
+                <div class="form-group">
+                    <input type="text" name="ID" id="ID" hidden value="@Model.ID"/>
+                    <select id="CompanyID" name="CompanyID" class="form-control">
+                        @foreach (var item in Model.CompanyL)
+                        {
+                            if (Model.CompanyID == item.ID)
+                            {
+                                <option selected value="@item.ID">@item.CompanyName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.ID">@item.CompanyName</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="ReceiverName" value="@Model.ReceiverName" id="ReceiverName" placeholder="Ad">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="ReceiverPhone" id="ReceiverPhone" value="@Model.ReceiverPhone" placeholder="Telefon">
+                </div>
+                <div class="form-group">
+                    <select id="ReceiverCompanyID" name="ReceiverCompanyID" class="form-control">
+                        <option></option>
+                        @foreach (var item in Model.CompanyL)
+                        {
+                            if (Model.ReceiverCompanyID != 0)
+                            {
+
+                                if (Model.ReceiverCompanyID == item.ID)
+                                {
+                                    <option selected value="@item.ID">@item.CompanyName</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.ID">@item.CompanyName</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="@item.ID">@item.CompanyName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+

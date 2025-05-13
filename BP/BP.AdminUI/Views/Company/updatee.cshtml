@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Kullanıcı Güncelle";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model BP.AdminUI.Models.CompanyUserVM
+<h1 style="padding: 7px 40px;" class="header-title col-12 alert-success">KULLANICI GÜNCELLE</h1>
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <input type="text" id="ID" hidden value="@Model.ID" />
+                <select id="CompanyID" class="form-control">
+                    @foreach (var item in Model.Comlist)
+                    {
+                        if (item.ID == Model.CompanyID)
+                        {
+                            <option selected value="@item.ID">@item.Company.CompanyName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.ID">@item.Company.CompanyName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="UserType">
+                    <option value="@Model.UserType">@Model.UserType</option>
+                    <option value="Admin Yetkili">Admin Yetkili</option>
+                    <option value="Firma Yetkili">Firma Yetkili</option>
+                    <option value="Kullanıcı">Kullanıcı</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" value="@Model.Name" id="Name" placeholder="Ad">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="Phone" value="@Model.Phone" placeholder="Telefon">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="Mail" value="@Model.Mail" placeholder="Email">
+            </div>
+            <a href="#" onclick="kayıt1()" class="btn btn-primary">Kaydet</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function kayıt1() {
+        var CompanyID = $("#CompanyID").val();
+        var UserType = $("#UserType").val();
+        var Name = $("#Name").val();
+        var Phone = $("#Phone").val();
+        var Mail = $("#Mail").val();
+        var ID = $("#ID").val();
+
+        if (Name != "") {
+            if (Phone != "") {
+                if (Mail != "") {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Company/UserAdd1/",
+                        data: { ID, CompanyID, UserType, Name, Phone, Mail },
+                        success: function (deger) {
+                            if (deger) {
+                                sucMess("Güncelleme İslemi Başarılı", "İşlem Başarılı");
+                                setInterval(function () {
+                                    window.location.href = "/Company/Index3";
+                                }, 2000)
+                            }
+                            else {
+                                warMess("İşlem Başarışız", "Hata");
+                            }
+                        }
+                    })
+                }
+                else {
+                    warMess("Mail Giriniz", "Hata");
+                }
+            }
+            else {
+                warMess("Telefon Giriniz", "Hata");
+            }
+        }
+        else {
+            warMess("Ad Giriniz", "Hata");
+        }
+
+    }
+</script>
+

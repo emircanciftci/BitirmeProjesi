@@ -1,0 +1,12 @@
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\bin\Debug\BP.DAL.dll.config
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\bin\Debug\BP.DAL.dll
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\bin\Debug\BP.DAL.pdb
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\bin\Debug\EntityFramework.dll
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\bin\Debug\EntityFramework.xml
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\obj\Debug\BP.DAL.csproj.AssemblyReference.cache
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\obj\Debug\BP.DAL.csproj.CoreCompileInputs.cache
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\obj\Debug\BP.DAL.csproj.CopyComplete
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\obj\Debug\BP.DAL.dll
+C:\Users\emirr\source\repos\BitirmeProjesi\BP\BP.DAL\obj\Debug\BP.DAL.pdb
